@@ -1,10 +1,12 @@
 package co.com.crediya.model.user.utils;
 
+import co.com.crediya.model.user.exception.UserContructionException;
+
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
-import static co.com.crediya.model.user.utils.Constantes.BASE_SALARY_OUT_RANGE;
-import static co.com.crediya.model.user.utils.Constantes.EMAIL_BAD_FORMAT;
+import static co.com.crediya.model.user.utils.Constantes.*;
 
 public class UtilUsers {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
@@ -13,15 +15,35 @@ public class UtilUsers {
 
     private UtilUsers() {}
 
-    public static void verifyEmailFormat(String email){
+    public static void verifyEmailFormat(String email) throws UserContructionException {
          if (!EMAIL_PATTERN.matcher(email).matches()){
-             throw new IllegalArgumentException(EMAIL_BAD_FORMAT);
+             throw new UserContructionException(EMAIL_BAD_FORMAT);
          }
     }
 
-    public static void validateRangeSalary(BigDecimal baseSalaryUser) {
-        if (baseSalaryUser.compareTo(MIN_SALARY) < 0 || baseSalaryUser.compareTo(MAX_SALARY) > 0){
-            throw new IllegalArgumentException(BASE_SALARY_OUT_RANGE);
+    public static BigDecimal validateBaseSalary(String baseSalaryUser) throws UserContructionException {
+        try {
+            BigDecimal baseSalaryBigDecimal = new BigDecimal(baseSalaryUser);
+            if (baseSalaryBigDecimal.compareTo(MIN_SALARY) < 0 || baseSalaryBigDecimal.compareTo(MAX_SALARY) > 0){
+                throw new UserContructionException(BASE_SALARY_OUT_RANGE);
+            }
+            return baseSalaryBigDecimal;
+        } catch (NumberFormatException ex){
+            throw new UserContructionException(BASE_SALARY_NOT_NUMBER);
+        }
+    }
+
+    public static Long validateToLong(String documentoIdentidadUsuario) throws UserContructionException {
+        try {
+            return Long.valueOf(documentoIdentidadUsuario);
+        } catch (NumberFormatException ex){
+            throw new UserContructionException(DOCUMENT_ID_NOT_NUMBER);
+        }
+    }
+
+    public static void validateNotNull(String baseSalaryUser, String message) throws UserContructionException {
+        if (Objects.isNull(baseSalaryUser)){
+            throw new UserContructionException(message);
         }
     }
 }

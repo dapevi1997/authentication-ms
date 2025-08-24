@@ -1,5 +1,8 @@
 package co.com.crediya.model.user.values;
 
+import co.com.crediya.model.user.exception.UserContructionException;
+import co.com.crediya.model.user.utils.UtilUsers;
+
 import java.util.Objects;
 
 import static co.com.crediya.model.user.utils.Constantes.*;
@@ -7,13 +10,12 @@ import static co.com.crediya.model.user.utils.Constantes.*;
 public class LastName {
     private String lastNameUser;
 
-    public LastName(String lastNameUser) {
+    public LastName(String lastNameUser) throws UserContructionException {
         // Verificar que el apellido no llegue nulo
-        Objects.requireNonNull(lastNameUser, LASTNAME_NULL);
-
+        UtilUsers.validateNotNull(lastNameUser, LASTNAME_NULL);
         // Verificar que el apellido no llegue vacío
         if (lastNameUser.isBlank()){
-            throw new IllegalArgumentException(LASTNAME_EMPTY);
+            throw new UserContructionException(LASTNAME_EMPTY);
         }
         this.lastNameUser = lastNameUser;
     }

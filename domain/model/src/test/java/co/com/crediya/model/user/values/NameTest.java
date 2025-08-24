@@ -1,5 +1,6 @@
 package co.com.crediya.model.user.values;
 
+import co.com.crediya.model.user.exception.UserContructionException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,7 +10,7 @@ class NameTest {
 
     // El nombre es correcto
     @Test
-    void nameOk(){
+    void nameOk() throws UserContructionException {
         // Arrange
         String nameInput = "Nombre";
 
@@ -27,7 +28,7 @@ class NameTest {
         String nameInput = null;
 
         // Act and Assert
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(UserContructionException.class, () -> {
             new Name(nameInput);
         });
     }
@@ -39,7 +40,7 @@ class NameTest {
         String nameInput = "";
 
         // Act and Assert
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(UserContructionException.class, () -> {
             new Name(nameInput);
         });
     }

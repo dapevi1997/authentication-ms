@@ -1,5 +1,6 @@
 package co.com.crediya.model.user.values;
 
+import co.com.crediya.model.user.exception.UserContructionException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmailTest {
     // El email es correcto
     @Test
-    void emailOk(){
+    void emailOk() throws UserContructionException {
         // Arrange
         String emailInput = "usuario@mail.com";
 
@@ -25,7 +26,7 @@ class EmailTest {
         String emailInput = null;
 
         // Act and Assert
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(UserContructionException.class, () -> {
             new Email(emailInput);
         });
     }
@@ -37,7 +38,7 @@ class EmailTest {
         String emailInput = "mal_email.com";
 
         // Act and Assert
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(UserContructionException.class, () -> {
             new Email(emailInput);
         });
     }

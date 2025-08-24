@@ -1,5 +1,6 @@
 package co.com.crediya.model.user.values;
 
+import co.com.crediya.model.user.exception.UserContructionException;
 import co.com.crediya.model.user.utils.UtilUsers;
 
 import java.util.Objects;
@@ -9,9 +10,9 @@ import static co.com.crediya.model.user.utils.Constantes.EMAIL_NULL;
 public class Email {
     private String emailUser;
 
-    public Email(String emailUser) {
+    public Email(String emailUser) throws UserContructionException {
         // Verificar que el email no sea null
-        Objects.requireNonNull(emailUser, EMAIL_NULL);
+        UtilUsers.validateNotNull(emailUser, EMAIL_NULL);
         //Verificar que email tenga formato correcto
         UtilUsers.verifyEmailFormat(emailUser);
 

@@ -1,19 +1,20 @@
 package co.com.crediya.model.user.values;
 
-import java.util.Objects;
+import co.com.crediya.model.user.exception.UserContructionException;
+import co.com.crediya.model.user.utils.UtilUsers;
 
 import static co.com.crediya.model.user.utils.Constantes.*;
 
 public class Name {
     private String nameUser;
 
-    public Name(String nameUser) {
+    public Name(String nameUser) throws UserContructionException {
         // Verificar que el nombre no llegue nulo
-        Objects.requireNonNull(nameUser, NAME_NULL);
+        UtilUsers.validateNotNull(nameUser,NAME_NULL);
 
         // Verificar que el nombre no llegue vacío
         if (nameUser.isBlank()){
-            throw new IllegalArgumentException(NAME_EMPTY);
+            throw new UserContructionException(NAME_EMPTY);
         }
         this.nameUser = nameUser;
     }

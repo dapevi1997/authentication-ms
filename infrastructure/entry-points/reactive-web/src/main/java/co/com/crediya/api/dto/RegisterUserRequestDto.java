@@ -17,7 +17,6 @@ public class RegisterUserRequestDto implements Serializable {
     @NotNull(message = "El campo apellido no puede ser nulo")
     private String lastName;
     @JsonProperty("email")
-    @NotBlank(message = "El campo email no puede estar vacío")
     @NotNull(message = "El campo email no puede ser nulo")
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "El email debe tener formato correcto")
     private String email;
@@ -33,6 +32,10 @@ public class RegisterUserRequestDto implements Serializable {
     @NotBlank(message = "El campo salario_base no puede estar vacío")
     @NotNull(message = "El campo salario_base no puede ser nulo")
     private String baseSalary;
+    @NotBlank(message = "El campo numero_documento no puede estar vacío")
+    @NotNull(message = "El campo numero_documento no puede ser nulo")
+    @JsonProperty("id_rol")
+    private String idRole;
 
     public String getName() {
         return name;
@@ -80,5 +83,13 @@ public class RegisterUserRequestDto implements Serializable {
 
     public void setBaseSalary(String baseSalary) {
         this.baseSalary = baseSalary;
+    }
+
+    public String getIdRole() {
+        return idRole;
+    }
+
+    public void setIdRole(String idRole) {
+        this.idRole = idRole;
     }
 }

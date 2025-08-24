@@ -1,5 +1,6 @@
 package co.com.crediya.model.user.values;
 
+import co.com.crediya.model.user.exception.UserContructionException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -9,25 +10,25 @@ import static org.junit.jupiter.api.Assertions.*;
 class BaseSalaryTest {
     // El salario base es correcto
     @Test
-    void baseSalaryOk(){
+    void baseSalaryOk() throws UserContructionException {
         // Arrange
-        BigDecimal baseSalaryInput = BigDecimal.valueOf(15000000.0);
+        String baseSalaryInput = "1233.25";
 
         // Act
         BaseSalary baseSalary = new BaseSalary(baseSalaryInput);
 
         // Assert
-        assertEquals(baseSalaryInput, baseSalary.getBaseSalaryUser());
+        assertEquals(new BigDecimal(baseSalaryInput), baseSalary.getBaseSalaryUser());
     }
 
     // El salario base es null
     @Test
     void baseSalaryNull(){
         // Arrange
-        BigDecimal baseSalaryInput = null;
+        String baseSalaryInput = null;
 
         // Act and Assert
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(UserContructionException.class, () -> {
             new BaseSalary(baseSalaryInput);
         });
     }
@@ -36,10 +37,10 @@ class BaseSalaryTest {
     @Test
     void baseSalaryNegative(){
         // Arrange
-        BigDecimal baseSalaryInput = BigDecimal.valueOf(-15000.0);
+        String baseSalaryInput = "-15000.0";
 
         // Act and Assert
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(UserContructionException.class, () -> {
             new BaseSalary(baseSalaryInput);
         });
     }
@@ -48,10 +49,22 @@ class BaseSalaryTest {
     @Test
     void baseSalaryOut(){
         // Arrange
-        BigDecimal baseSalaryInput = BigDecimal.valueOf(16000000.0);
+        String baseSalaryInput = "16000000.0";
 
         // Act and Assert
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(UserContructionException.class, () -> {
+            new BaseSalary(baseSalaryInput);
+        });
+    }
+
+    // El salario base no es un valor numérico
+    @Test
+    void baseSalaryNotNumeric(){
+        // Arrange
+        String baseSalaryInput = "160000df00.0";
+
+        // Act and Assert
+        assertThrows(UserContructionException.class, () -> {
             new BaseSalary(baseSalaryInput);
         });
     }

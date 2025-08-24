@@ -11,5 +11,6 @@ public class RegisterUserUseCase {
         this.userRepository = userRepository;
     }
 
-    public Mono<User> registerUser(User user){ return userRepository.save(user);}
+    public Mono<User> registerUser(User user){
+        return userRepository.save(user);}
 }

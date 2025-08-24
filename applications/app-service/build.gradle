@@ -1,6 +1,9 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
+	implementation project(':custom-mapper')
+	implementation 'org.reactivecommons.utils:object-mapper:0.1.0'
+	implementation project(':r2dbc-mysql')
 	implementation project(':request-validator')
 	implementation project(':reactive-web')
     implementation project(':model')
