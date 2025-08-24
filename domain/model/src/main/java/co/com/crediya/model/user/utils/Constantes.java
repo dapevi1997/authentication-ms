@@ -12,4 +12,5 @@ public final class Constantes {
     public static final String DOCUMENT_ID_NULL = "El documento de identidad del usuario no puede ser nulo";
     public static final String PHONE_NULL = "El relefono del usuario no puede ser nulo";
     public static final String BASE_SALARY_NULL = "El salario base del usuario no puede ser nulo";
+    public static final String BASE_SALARY_OUT_RANGE = "El salario base del usuario debe estar entre el rango [$0, $15.000.000]";
 }
