@@ -1,6 +1,9 @@
 package co.com.crediya.config;
 
-import co.com.crediya.model.user.exception.UserContructionException;
+import co.com.crediya.api.BadRequestException;
+import co.com.crediya.config.dto.ErrorResponseDto;
+import co.com.crediya.model.user.exception.DomainException;
+import co.com.crediya.model.user.exception.ConstructionDomainException;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
@@ -41,9 +44,14 @@ public class GlobalExceptionHandler extends AbstractErrorWebExceptionHandler {
         Throwable error = getError(request);
         //log.error("An error has been occurred", error);
         HttpStatus httpStatus;
-        if (error instanceof UserContructionException) {
+        if (error instanceof ConstructionDomainException) {
             httpStatus = HttpStatus.BAD_REQUEST;
-        } else if (error instanceof Exception exception) {
+        } else if (error instanceof BadRequestException){
+            httpStatus = HttpStatus.BAD_REQUEST;
+        }else if (error instanceof DomainException){
+            httpStatus = HttpStatus.CONFLICT;
+        }
+        else if (error instanceof Exception exception) {
             httpStatus = exceptionToStatusCode.getOrDefault(exception.getClass(), defaultStatus);
         } else {
             httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -51,7 +59,7 @@ public class GlobalExceptionHandler extends AbstractErrorWebExceptionHandler {
         return ServerResponse
                 .status(httpStatus)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromValue(new ErrorResponseDto(error.getMessage()))
+                .body(BodyInserters.fromValue(new ErrorResponseDto(error.getMessage(), httpStatus.toString()))
                 );
     }
 }

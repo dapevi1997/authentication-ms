@@ -1,6 +1,6 @@
 package co.com.crediya.model.user.values;
 
-import co.com.crediya.model.user.exception.UserContructionException;
+import co.com.crediya.model.user.exception.ConstructionDomainException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class LastNameTest {
     // El apellido es correcto
     @Test
-    void lastNameOk() throws UserContructionException {
+    void lastNameOk() throws ConstructionDomainException {
         // Arrange
         String lastNameInput = "Apellido";
 
@@ -26,7 +26,7 @@ class LastNameTest {
         String lastNameInput = null;
 
         // Act and Assert
-        assertThrows(UserContructionException.class, () -> {
+        assertThrows(ConstructionDomainException.class, () -> {
             new LastName(lastNameInput);
         });
     }
@@ -38,7 +38,7 @@ class LastNameTest {
         String lastNameInput = "";
 
         // Act and Assert
-        assertThrows(UserContructionException.class, () -> {
+        assertThrows(ConstructionDomainException.class, () -> {
             new LastName(lastNameInput);
         });
     }

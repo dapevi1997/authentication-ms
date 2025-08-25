@@ -3,8 +3,21 @@ package co.com.crediya.api.dto;
 import java.io.Serializable;
 
 public class RegisterUserResponseDto implements Serializable {
+    private String idUser;
+    private String idRole;
     private String message;
-    private String roleName;
+    private final String timestamp;
+
+    public RegisterUserResponseDto() {
+        this.timestamp = String.valueOf(System.currentTimeMillis());
+    }
+
+    public RegisterUserResponseDto(String idUser, String idRole, String message) {
+        this.idUser = idUser;
+        this.idRole = idRole;
+        this.message = message;
+        this.timestamp = String.valueOf(System.currentTimeMillis());
+    }
 
     public String getMessage() {
         return message;
@@ -14,11 +27,19 @@ public class RegisterUserResponseDto implements Serializable {
         this.message = message;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getIdRole() {
+        return idRole;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setIdRole(String idRole) {
+        this.idRole = idRole;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 }

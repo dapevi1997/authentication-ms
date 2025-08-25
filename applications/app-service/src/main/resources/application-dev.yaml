@@ -34,6 +34,6 @@ adapters:
     host: "localhost"
     port: 3306
     database: "authentication"
-    schema: "schema.sql"
+    schema: "init-config-database-dev.sql"
     username: "user"
     password: "password"

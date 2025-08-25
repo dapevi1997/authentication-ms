@@ -1,20 +1,19 @@
 package co.com.crediya.model.user.values;
 
-import co.com.crediya.model.user.exception.UserContructionException;
-import co.com.crediya.model.user.utils.UtilUsers;
+import co.com.crediya.model.user.exception.ConstructionDomainException;
+import co.com.crediya.model.user.utils.ValidationFieldDomain;
 
-import java.util.Objects;
-
+import static co.com.crediya.model.user.utils.Constantes.DOCUMENT_ID_NOT_NUMBER;
 import static co.com.crediya.model.user.utils.Constantes.DOCUMENT_ID_NULL;
 
 public class DocumentId {
     private Long documentoIdentidadUsuario;
 
-    public DocumentId(String documentoIdentidadUsuario) throws UserContructionException {
+    public DocumentId(String documentoIdentidadUsuario) throws ConstructionDomainException {
         // Verificar que no venga nulo
-        UtilUsers.validateNotNull(documentoIdentidadUsuario, DOCUMENT_ID_NULL);
+        ValidationFieldDomain.validateNotNull(documentoIdentidadUsuario, DOCUMENT_ID_NULL);
         // Validación que sea un valor numérico
-        this.documentoIdentidadUsuario = UtilUsers.validateToLong(documentoIdentidadUsuario);
+        this.documentoIdentidadUsuario = ValidationFieldDomain.validateToLong(documentoIdentidadUsuario, DOCUMENT_ID_NOT_NUMBER);
     }
 
     public Long getDocumentoIdentidadUsuario() {

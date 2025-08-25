@@ -8,9 +8,10 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
-@Table("crediya_user")
+@Table("user")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +23,12 @@ public class UserEntity {
 
     @Column("lastname")
     private String lastname;
+
+    @Column("birthdate")
+    private LocalDate birthdate;
+
+    @Column("address")
+    private String address;
 
     @Column("email")
     private String email;
@@ -35,7 +42,7 @@ public class UserEntity {
     @Column("base_salary")
     private BigDecimal baseSalary;
 
-    @Column("id_rol")
+    @Column("id_role")
     private Long idRol;
 
     public Long getIdUser() {
@@ -100,5 +107,21 @@ public class UserEntity {
 
     public void setIdRol(Long idRol) {
         this.idRol = idRol;
+    }
+
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

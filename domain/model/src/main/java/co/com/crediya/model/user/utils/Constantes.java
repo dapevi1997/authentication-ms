@@ -12,7 +12,17 @@ public final class Constantes {
     public static final String DOCUMENT_ID_NULL = "El documento de identidad del usuario no puede ser nulo";
     public static final String DOCUMENT_ID_NOT_NUMBER = "El documento de identidad proporcionado debe ser un valor numérico";
     public static final String PHONE_NULL = "El relefono del usuario no puede ser nulo";
+    public static final String PHONE_BAD_FORMAT = "El teléfono debe contener solo números";
     public static final String BASE_SALARY_NULL = "El salario base del usuario no puede ser nulo";
     public static final String BASE_SALARY_OUT_RANGE = "El salario base del usuario debe estar entre el rango [$0, $15.000.000]";
     public static final String BASE_SALARY_NOT_NUMBER = "No se pudo obtener el valor numérico del salario ingresado";
+    public static final String BIRTHDAY_NULL = "La fecha de nacimiento del usuario no puede ser nula";
+    public static final String BIRTHDAY_BAD_FORMAT = "La fecha de nacimiento debe tener el formato yyyy-MM-dd";
+    public static final String ID_USER_NULL = "El id del usuario no debe ser nulo";
+    public static final String ID_USER_BAD_FORMAT = "No se pudo obtener el valor numérico del id del usuario";
+    public static final String BIRTHDAY_USER_NULL = "La fecha de nacimiento del usuario no puede ser nula";
+    public static final String ADDRESS_USER_NULL = "La dirección no puede ser nula";
+    public static final String ADDRESS_USER_EMPTY = "La dirección no puede estar vacía";
+    public static final String ID_ROLE_NULL = "El id del rol no debe ser nulo";
+    public static final String ID_ROLE_BAD_FORMAT = "El id del rol debe ser un valor numérico";
 }

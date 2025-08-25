@@ -1,5 +1,6 @@
 package co.com.crediya.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -20,6 +21,11 @@ public class RegisterUserRequestDto implements Serializable {
     @NotNull(message = "El campo apellido no puede ser nulo")
     @Schema(description = "Apellido del usuario", examples = "Apellido")
     private String lastName;
+    @JsonProperty("direccion")
+    @NotBlank(message = "El campo dirección no puede estar vacío")
+    @NotNull(message = "El campo dirección no puede ser nulo")
+    @Schema(description = "Dirección del usuario", examples = "CR 21#56-78")
+    private String address;
     @JsonProperty("email")
     @NotNull(message = "El campo email no puede ser nulo")
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "El email debe tener formato correcto")
@@ -40,6 +46,12 @@ public class RegisterUserRequestDto implements Serializable {
     @NotNull(message = "El campo salario_base no puede ser nulo")
     @Schema(description = "Salario base", examples = "1000000")
     private String baseSalary;
+    @JsonProperty("fecha_nacimiento")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotBlank(message = "El campo fecha_nacimiento no puede estar vacío")
+    @NotNull(message = "El campo fecha_nacimiento no puede ser nulo")
+    @Schema(description = "Fecha de nacimiento", examples = "1990-05-21")
+    private String userBirthday;
     @NotBlank(message = "El campo numero_documento no puede estar vacío")
     @NotNull(message = "El campo numero_documento no puede ser nulo")
     @Schema(description = "Id del rol", examples = "1")
@@ -100,5 +112,36 @@ public class RegisterUserRequestDto implements Serializable {
 
     public void setIdRole(String idRole) {
         this.idRole = idRole;
+    }
+
+    public String getUserBirthday() {
+        return userBirthday;
+    }
+
+    public void setUserBirthday(String userBirthday) {
+        this.userBirthday = userBirthday;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "RegisterUserRequestDto{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", adress='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", documentId='" + documentId + '\'' +
+                ", phone='" + phone + '\'' +
+                ", baseSalary='" + baseSalary + '\'' +
+                ", userBirthday='" + userBirthday + '\'' +
+                ", idRole='" + idRole + '\'' +
+                '}';
     }
 }

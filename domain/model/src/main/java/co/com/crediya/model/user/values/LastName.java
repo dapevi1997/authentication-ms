@@ -1,21 +1,19 @@
 package co.com.crediya.model.user.values;
 
-import co.com.crediya.model.user.exception.UserContructionException;
-import co.com.crediya.model.user.utils.UtilUsers;
-
-import java.util.Objects;
+import co.com.crediya.model.user.exception.ConstructionDomainException;
+import co.com.crediya.model.user.utils.ValidationFieldDomain;
 
 import static co.com.crediya.model.user.utils.Constantes.*;
 
 public class LastName {
     private String lastNameUser;
 
-    public LastName(String lastNameUser) throws UserContructionException {
+    public LastName(String lastNameUser) throws ConstructionDomainException {
         // Verificar que el apellido no llegue nulo
-        UtilUsers.validateNotNull(lastNameUser, LASTNAME_NULL);
+        ValidationFieldDomain.validateNotNull(lastNameUser, LASTNAME_NULL);
         // Verificar que el apellido no llegue vacío
         if (lastNameUser.isBlank()){
-            throw new UserContructionException(LASTNAME_EMPTY);
+            throw new ConstructionDomainException(LASTNAME_EMPTY);
         }
         this.lastNameUser = lastNameUser;
     }

@@ -2,6 +2,7 @@ package co.com.crediya.api;
 
 import co.com.crediya.api.dto.RegisterUserRequestDto;
 import co.com.crediya.api.dto.RegisterUserResponseDto;
+import co.com.crediya.api.swaggerutil.BodyBadRequestResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -41,6 +42,14 @@ public class RouterRest {
                                     @ApiResponse(
                                             responseCode = "200", description = "Usuario registrado correctamente",
                                             content = @Content(schema = @Schema(implementation = RegisterUserResponseDto.class))
+                                    ),
+                                    @ApiResponse(
+                                            responseCode = "400", description = "Error en la solicitud",
+                                            content = @Content(schema = @Schema(implementation = BodyBadRequestResponse.class))
+                                    ),
+                                    @ApiResponse(
+                                            responseCode = "409", description = "Conflicto al registrar el usuario",
+                                            content = @Content(schema = @Schema(implementation = BodyBadRequestResponse.class))
                                     )
                             }
                     )

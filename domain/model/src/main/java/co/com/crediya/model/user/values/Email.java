@@ -1,20 +1,18 @@
 package co.com.crediya.model.user.values;
 
-import co.com.crediya.model.user.exception.UserContructionException;
-import co.com.crediya.model.user.utils.UtilUsers;
-
-import java.util.Objects;
+import co.com.crediya.model.user.exception.ConstructionDomainException;
+import co.com.crediya.model.user.utils.ValidationFieldDomain;
 
 import static co.com.crediya.model.user.utils.Constantes.EMAIL_NULL;
 
 public class Email {
     private String emailUser;
 
-    public Email(String emailUser) throws UserContructionException {
+    public Email(String emailUser) throws ConstructionDomainException {
         // Verificar que el email no sea null
-        UtilUsers.validateNotNull(emailUser, EMAIL_NULL);
+        ValidationFieldDomain.validateNotNull(emailUser, EMAIL_NULL);
         //Verificar que email tenga formato correcto
-        UtilUsers.verifyEmailFormat(emailUser);
+        ValidationFieldDomain.verifyEmailFormat(emailUser);
 
         this.emailUser = emailUser;
     }

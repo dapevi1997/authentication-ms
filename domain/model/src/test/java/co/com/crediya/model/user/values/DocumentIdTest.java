@@ -1,6 +1,6 @@
 package co.com.crediya.model.user.values;
 
-import co.com.crediya.model.user.exception.UserContructionException;
+import co.com.crediya.model.user.exception.ConstructionDomainException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DocumentIdTest {
     // El documento de identidad es correcto
     @Test
-    void documentIdOk() throws UserContructionException {
+    void documentIdOk() throws ConstructionDomainException {
         // Arrange
         String documentIdInput = "1234";
 
@@ -26,7 +26,7 @@ class DocumentIdTest {
         String documentIdInput = null;
 
         // Act and Assert
-        assertThrows(UserContructionException.class, () -> {
+        assertThrows(ConstructionDomainException.class, () -> {
             new DocumentId(documentIdInput);
         });
     }
@@ -38,7 +38,7 @@ class DocumentIdTest {
         String documentIdInput = "1s2";
 
         // Act and Assert
-        assertThrows(UserContructionException.class, () -> {
+        assertThrows(ConstructionDomainException.class, () -> {
             new DocumentId(documentIdInput);
         });
     }

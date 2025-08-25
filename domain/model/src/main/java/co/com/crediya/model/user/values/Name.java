@@ -1,20 +1,20 @@
 package co.com.crediya.model.user.values;
 
-import co.com.crediya.model.user.exception.UserContructionException;
-import co.com.crediya.model.user.utils.UtilUsers;
+import co.com.crediya.model.user.exception.ConstructionDomainException;
+import co.com.crediya.model.user.utils.ValidationFieldDomain;
 
 import static co.com.crediya.model.user.utils.Constantes.*;
 
 public class Name {
     private String nameUser;
 
-    public Name(String nameUser) throws UserContructionException {
+    public Name(String nameUser) throws ConstructionDomainException {
         // Verificar que el nombre no llegue nulo
-        UtilUsers.validateNotNull(nameUser,NAME_NULL);
+        ValidationFieldDomain.validateNotNull(nameUser,NAME_NULL);
 
         // Verificar que el nombre no llegue vacío
         if (nameUser.isBlank()){
-            throw new UserContructionException(NAME_EMPTY);
+            throw new ConstructionDomainException(NAME_EMPTY);
         }
         this.nameUser = nameUser;
     }

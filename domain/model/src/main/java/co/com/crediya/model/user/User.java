@@ -3,22 +3,26 @@ package co.com.crediya.model.user;
 import co.com.crediya.model.user.values.*;
 
 public class User {
-    private Long idUser;
+    private IdUser idUser;
     private Name name;
     private LastName lastName;
     private Email email;
+    private Birthday birthday;
+    private Address address;
     private DocumentId documentId;
     private Phone phone;
     private BaseSalary baseSalary;
-    private Long idRole;
+    private IdRole idRole;
 
     public User() {
     }
 
-    public User(Name name, LastName lastName, Email email, DocumentId documentId, Phone phone, BaseSalary baseSalary, Long idRole) {
+    public User(Name name, LastName lastName, Email email, Birthday birthday, Address address, DocumentId documentId, Phone phone, BaseSalary baseSalary, IdRole idRole) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
+        this.birthday = birthday;
+        this.address = address;
         this.documentId = documentId;
         this.phone = phone;
         this.baseSalary = baseSalary;
@@ -73,20 +77,36 @@ public class User {
         this.baseSalary = baseSalary;
     }
 
-    public Long getIdUser() {
+    public IdUser getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Long idUser) {
+    public void setIdUser(IdUser idUser) {
         this.idUser = idUser;
     }
 
-    public Long getIdRole() {
+    public IdRole getIdRole() {
         return idRole;
     }
 
-    public void setIdRole(Long idRole) {
+    public void setIdRole(IdRole idRole) {
         this.idRole = idRole;
+    }
+
+    public Birthday getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Birthday birthday) {
+        this.birthday = birthday;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
@@ -96,6 +116,8 @@ public class User {
                 ", name=" + name +
                 ", lastName=" + lastName +
                 ", email=" + email +
+                ", birthday=" + birthday +
+                ", address=" + address +
                 ", documentId=" + documentId +
                 ", phone=" + phone +
                 ", baseSalary=" + baseSalary +

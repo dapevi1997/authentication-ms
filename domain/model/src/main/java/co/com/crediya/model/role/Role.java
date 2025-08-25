@@ -1,20 +1,21 @@
 package co.com.crediya.model.role;
 
 import co.com.crediya.model.role.values.Description;
+import co.com.crediya.model.role.values.IdRole;
 import co.com.crediya.model.role.values.Name;
 
 public class Role {
-    private Long idRole;
+    private IdRole idRole;
     private Name nameRole;
     private Description descriptionRole;
 
     public Role(){}
 
-    public Long getIdRole() {
+    public IdRole getIdRole() {
         return idRole;
     }
 
-    public void setIdRole(Long idRole) {
+    public void setIdRole(IdRole idRole) {
         this.idRole = idRole;
     }
 

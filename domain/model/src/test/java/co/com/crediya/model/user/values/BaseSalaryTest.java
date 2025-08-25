@@ -1,6 +1,6 @@
 package co.com.crediya.model.user.values;
 
-import co.com.crediya.model.user.exception.UserContructionException;
+import co.com.crediya.model.user.exception.ConstructionDomainException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BaseSalaryTest {
     // El salario base es correcto
     @Test
-    void baseSalaryOk() throws UserContructionException {
+    void baseSalaryOk() throws ConstructionDomainException {
         // Arrange
         String baseSalaryInput = "1233.25";
 
@@ -28,7 +28,7 @@ class BaseSalaryTest {
         String baseSalaryInput = null;
 
         // Act and Assert
-        assertThrows(UserContructionException.class, () -> {
+        assertThrows(ConstructionDomainException.class, () -> {
             new BaseSalary(baseSalaryInput);
         });
     }
@@ -40,7 +40,7 @@ class BaseSalaryTest {
         String baseSalaryInput = "-15000.0";
 
         // Act and Assert
-        assertThrows(UserContructionException.class, () -> {
+        assertThrows(ConstructionDomainException.class, () -> {
             new BaseSalary(baseSalaryInput);
         });
     }
@@ -52,7 +52,7 @@ class BaseSalaryTest {
         String baseSalaryInput = "16000000.0";
 
         // Act and Assert
-        assertThrows(UserContructionException.class, () -> {
+        assertThrows(ConstructionDomainException.class, () -> {
             new BaseSalary(baseSalaryInput);
         });
     }
@@ -64,7 +64,7 @@ class BaseSalaryTest {
         String baseSalaryInput = "160000df00.0";
 
         // Act and Assert
-        assertThrows(UserContructionException.class, () -> {
+        assertThrows(ConstructionDomainException.class, () -> {
             new BaseSalary(baseSalaryInput);
         });
     }
