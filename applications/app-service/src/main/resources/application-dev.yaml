@@ -27,6 +27,8 @@ springdoc:
     path: "/swagger-docs"
   api-docs:
     path: "/api-docs"
+    groups:
+      enabled: true
 adapters:
   r2dbc:
     host: "localhost"

@@ -1,7 +1,9 @@
 package co.com.crediya.usecase.registeruser;
 
 import co.com.crediya.model.user.User;
+import co.com.crediya.model.user.exception.UserContructionException;
 import co.com.crediya.model.user.gateways.UserRepository;
+import co.com.crediya.model.user.values.Email;
 import reactor.core.publisher.Mono;
 
 public class RegisterUserUseCase {
@@ -11,6 +13,6 @@ public class RegisterUserUseCase {
         this.userRepository = userRepository;
     }
 
-    public Mono<User> registerUser(User user){
+    public Mono<User> registerUser(User user) {
         return userRepository.save(user);}
 }

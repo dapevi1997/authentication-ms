@@ -16,7 +16,6 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
-import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
@@ -26,6 +25,7 @@ public class RouterRest {
     @RouterOperations({
             @RouterOperation(
                     path = "/api/v1/usuarios",
+                    produces = MediaType.APPLICATION_JSON_VALUE,
                     operation = @Operation(
                             operationId = "registerUser",
                             summary = "Registrar un nuevo usuario",

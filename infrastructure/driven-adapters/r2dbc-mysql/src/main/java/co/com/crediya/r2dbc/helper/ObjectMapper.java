@@ -1,8 +1,11 @@
 package co.com.crediya.r2dbc.helper;
 
+import co.com.crediya.model.role.Role;
+import co.com.crediya.model.role.values.Description;
 import co.com.crediya.model.user.User;
 import co.com.crediya.model.user.exception.UserContructionException;
 import co.com.crediya.model.user.values.*;
+import co.com.crediya.r2dbc.RoleEntity;
 import co.com.crediya.r2dbc.UserEntity;
 
 public class ObjectMapper {
@@ -21,6 +24,14 @@ public class ObjectMapper {
         return userEntity;
     }
 
+    public static RoleEntity roleToRoleEntity(Role role){
+        RoleEntity roleEntity = new RoleEntity();
+        roleEntity.setName(role.getNameRole().getNameRole());
+        roleEntity.setDescription(role.getDescriptionRole().getDescriptionRole());
+
+        return roleEntity;
+    }
+
     public static User userEntityToUser(UserEntity userEntity) {
         try {
             User user = new User();
@@ -37,5 +48,13 @@ public class ObjectMapper {
             return null;
         }
 
+    }
+
+    public static Role roleEntityToRole(RoleEntity roleEntity){
+        Role role = new Role();
+        role.setNameRole(new co.com.crediya.model.role.values.Name(roleEntity.getName()));
+        role.setDescriptionRole(new Description(roleEntity.getDescription()));
+        role.setIdRole(roleEntity.getIdRole());
+        return role;
     }
 }
