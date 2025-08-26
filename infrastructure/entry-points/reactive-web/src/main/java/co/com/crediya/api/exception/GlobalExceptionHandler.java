@@ -1,9 +1,6 @@
-package co.com.crediya.config;
+package co.com.crediya.api.exception;
 
-import co.com.crediya.api.exception.BadRequestException;
-import co.com.crediya.config.dto.ErrorResponseDto;
-import co.com.crediya.model.user.exception.DomainException;
-import co.com.crediya.model.user.exception.ConstructionDomainException;
+import co.com.crediya.api.dto.ErrorResponseDto;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
@@ -42,19 +39,22 @@ public class GlobalExceptionHandler extends AbstractErrorWebExceptionHandler {
     private Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
 
         Throwable error = getError(request);
-        //log.error("An error has been occurred", error);
         HttpStatus httpStatus;
-        if (error instanceof ConstructionDomainException) {
-            httpStatus = HttpStatus.BAD_REQUEST;
-        } else if (error instanceof BadRequestException){
-            httpStatus = HttpStatus.BAD_REQUEST;
-        }else if (error instanceof DomainException){
-            httpStatus = HttpStatus.CONFLICT;
-        }
-        else if (error instanceof Exception exception) {
-            httpStatus = exceptionToStatusCode.getOrDefault(exception.getClass(), defaultStatus);
-        } else {
-            httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        switch (error.getClass().getSimpleName()) {
+            case "ConstructionDomainException":
+            case "BadRequestException":
+                httpStatus = HttpStatus.BAD_REQUEST;
+                break;
+            case "DomainException":
+                httpStatus = HttpStatus.CONFLICT;
+                break;
+            default:
+                if (error instanceof Exception) {
+                    httpStatus = exceptionToStatusCode.getOrDefault(error.getClass(), defaultStatus);
+                } else {
+                    httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+                }
+                break;
         }
         return ServerResponse
                 .status(httpStatus)

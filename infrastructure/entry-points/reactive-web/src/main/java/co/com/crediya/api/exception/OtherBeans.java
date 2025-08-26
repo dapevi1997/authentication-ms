@@ -1,4 +1,4 @@
-package co.com.crediya.config;
+package co.com.crediya.api.exception;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

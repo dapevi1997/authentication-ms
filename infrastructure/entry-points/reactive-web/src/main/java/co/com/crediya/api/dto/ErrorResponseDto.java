@@ -1,11 +1,13 @@
-package co.com.crediya.api.swaggerutil;
+package co.com.crediya.api.dto;
 
-public class BodyErrorResponseDto {
+import java.io.Serializable;
+
+public class ErrorResponseDto implements Serializable {
     private String httpStatus;
     private String message;
     private String timestamp;
 
-    public BodyErrorResponseDto(String message, String httpStatus) {
+    public ErrorResponseDto(String message, String httpStatus) {
         this.message = message;
         this.httpStatus = httpStatus;
         this.timestamp = String.valueOf(System.currentTimeMillis());
