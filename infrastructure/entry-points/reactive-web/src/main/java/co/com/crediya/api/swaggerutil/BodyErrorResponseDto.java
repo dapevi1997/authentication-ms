@@ -1,11 +1,11 @@
 package co.com.crediya.api.swaggerutil;
 
-public class BodyBadRequestResponse {
+public class BodyErrorResponseDto {
     private String httpStatus;
     private String message;
     private String timestamp;
 
-    public BodyBadRequestResponse(String message, String httpStatus) {
+    public BodyErrorResponseDto(String message, String httpStatus) {
         this.message = message;
         this.httpStatus = httpStatus;
         this.timestamp = String.valueOf(System.currentTimeMillis());

@@ -2,6 +2,7 @@ package co.com.crediya.api;
 
 import co.com.crediya.api.dto.RegisterUserRequestDto;
 import co.com.crediya.api.dto.RegisterUserResponseDto;
+import co.com.crediya.api.exception.BadRequestException;
 import co.com.crediya.api.util.CustomMapperWebFlux;
 import co.com.crediya.model.user.User;
 import co.com.crediya.model.user.exception.DomainException;

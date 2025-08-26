@@ -1,6 +1,6 @@
 package co.com.crediya.config;
 
-import co.com.crediya.api.BadRequestException;
+import co.com.crediya.api.exception.BadRequestException;
 import co.com.crediya.config.dto.ErrorResponseDto;
 import co.com.crediya.model.user.exception.DomainException;
 import co.com.crediya.model.user.exception.ConstructionDomainException;
