@@ -24,9 +24,4 @@ public class BaseSalary {
     public void setBaseSalaryUser(BigDecimal baseSalaryUser) {
         this.baseSalaryUser = baseSalaryUser;
     }
-
-    @Override
-    public String toString() {
-        return baseSalaryUser.toString();
-    }
 }

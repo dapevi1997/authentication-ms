@@ -38,6 +38,7 @@ public class Handler {
 
     public Mono<ServerResponse> registerUser(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(RegisterUserRequestDto.class)
+                .switchIfEmpty(Mono.error(new BadRequestException("El body de la peticion no puede ser vacío")))
                 .doOnNext(registerUserRequestDto -> log.info("Agregar usuario request recibido {}", objectMapper.map(registerUserRequestDto, RegisterUserRequestDto.class)))
                 .flatMap(this::validateRequest)
                 .flatMap(this::buildandReturnUserDomail)

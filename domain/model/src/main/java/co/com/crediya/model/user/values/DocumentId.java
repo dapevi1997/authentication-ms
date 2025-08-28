@@ -23,9 +23,4 @@ public class DocumentId {
     public void setDocumentoIdentidadUsuario(Long documentoIdentidadUsuario) {
         this.documentoIdentidadUsuario = documentoIdentidadUsuario;
     }
-
-    @Override
-    public String toString() {
-        return documentoIdentidadUsuario.toString();
-    }
 }

@@ -23,9 +23,4 @@ public class Name {
     public void setNameRole(String nameRole) {
         this.nameRole = nameRole;
     }
-
-    @Override
-    public String toString() {
-        return nameRole;
-    }
 }

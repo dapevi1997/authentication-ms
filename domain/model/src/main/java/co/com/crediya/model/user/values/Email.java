@@ -24,9 +24,4 @@ public class Email {
     public void setEmailUser(String emailUser) {
         this.emailUser = emailUser;
     }
-
-    @Override
-    public String toString() {
-        return emailUser;
-    }
 }

@@ -10,7 +10,7 @@ class BirthdayTest {
     @Test
     void birthdateOk() throws ConstructionDomainException {
         // Arrange
-        String birthdateInput = "02-03-2025";
+        String birthdateInput = "2025-03-03";
 
         // Act
         Birthday birthday = new Birthday(birthdateInput);

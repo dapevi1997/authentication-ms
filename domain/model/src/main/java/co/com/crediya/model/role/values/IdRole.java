@@ -21,9 +21,4 @@ public class IdRole {
     public void setIdRole(Long idRole) {
         this.idRole = idRole;
     }
-
-    @Override
-    public String toString() {
-        return idRole.toString();
-    }
 }

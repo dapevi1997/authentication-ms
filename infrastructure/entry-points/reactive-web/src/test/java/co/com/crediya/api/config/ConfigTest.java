@@ -1,36 +1,111 @@
 package co.com.crediya.api.config;
 
-import co.com.crediya.api.Handler;
-import co.com.crediya.api.RouterRest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.web.reactive.server.WebTestClient;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilterChain;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
-@ContextConfiguration(classes = {RouterRest.class, Handler.class})
-@WebFluxTest
-@Import({CorsConfig.class, SecurityHeadersConfig.class})
+@ExtendWith(MockitoExtension.class)
 class ConfigTest {
 
-    @Autowired
-    private WebTestClient webTestClient;
+    @Mock
+    private ServerWebExchange exchange;
+    @Mock
+    private WebFilterChain chain;
+    @Mock
+    private org.springframework.http.server.reactive.ServerHttpResponse response;
 
-    @Test
-    void corsConfigurationShouldAllowOrigins() {
-        webTestClient.get()
-                .uri("/api/usecase/path")
-                .exchange()
-                .expectStatus().isOk()
-                .expectHeader().valueEquals("Content-Security-Policy",
-                        "default-src 'self'; frame-ancestors 'self'; form-action 'self'")
-                .expectHeader().valueEquals("Strict-Transport-Security", "max-age=31536000;")
-                .expectHeader().valueEquals("X-Content-Type-Options", "nosniff")
-                .expectHeader().valueEquals("Server", "")
-                .expectHeader().valueEquals("Cache-Control", "no-store")
-                .expectHeader().valueEquals("Pragma", "no-cache")
-                .expectHeader().valueEquals("Referrer-Policy", "strict-origin-when-cross-origin");
+    private CorsConfig corsConfig;
+    private SecurityHeadersConfig securityHeadersConfig;
+
+    @BeforeEach
+    void setUp() {
+        corsConfig = new CorsConfig();
+        securityHeadersConfig = new SecurityHeadersConfig();
     }
 
+    @Test
+    void testCorsConfigCreation() {
+        assertNotNull(corsConfig);
+    }
+
+    @Test
+    void testCorsWebFilterBean() {
+        // Arrange
+        String origins = "http://localhost:3000,http://localhost:8080";
+
+        // Act
+        CorsWebFilter corsWebFilter = corsConfig.corsWebFilter(origins);
+
+        // Assert
+        assertNotNull(corsWebFilter);
+    }
+
+    @Test
+    void testCorsWebFilterWithSingleOrigin() {
+        // Arrange
+        String origins = "http://localhost:3000";
+
+        // Act
+        CorsWebFilter corsWebFilter = corsConfig.corsWebFilter(origins);
+
+        // Assert
+        assertNotNull(corsWebFilter);
+    }
+
+    @Test
+    void testSecurityHeadersConfigCreation() {
+        assertNotNull(securityHeadersConfig);
+    }
+
+    @Test
+    void testSecurityHeadersFilter() {
+        // Arrange
+        HttpHeaders headers = new HttpHeaders();
+        when(exchange.getResponse()).thenReturn(response);
+        when(response.getHeaders()).thenReturn(headers);
+        when(chain.filter(exchange)).thenReturn(Mono.empty());
+
+        // Act
+        Mono<Void> result = securityHeadersConfig.filter(exchange, chain);
+
+        // Assert
+        StepVerifier.create(result).verifyComplete();
+
+        assertEquals("default-src 'self'; frame-ancestors 'self'; form-action 'self'",
+                headers.getFirst("Content-Security-Policy"));
+        assertEquals("max-age=31536000;", headers.getFirst("Strict-Transport-Security"));
+        assertEquals("nosniff", headers.getFirst("X-Content-Type-Options"));
+        assertEquals("", headers.getFirst("Server"));
+        assertEquals("no-store", headers.getFirst("Cache-Control"));
+        assertEquals("no-cache", headers.getFirst("Pragma"));
+        assertEquals("strict-origin-when-cross-origin", headers.getFirst("Referrer-Policy"));
+    }
+
+    @Test
+    void testSecurityHeadersFilterExecution() {
+        // Arrange
+        HttpHeaders headers = new HttpHeaders();
+        when(exchange.getResponse()).thenReturn(response);
+        when(response.getHeaders()).thenReturn(headers);
+        when(chain.filter(exchange)).thenReturn(Mono.empty());
+
+        // Act
+        securityHeadersConfig.filter(exchange, chain).block();
+
+        // Assert
+        assertFalse(headers.isEmpty());
+        assertEquals(7, headers.size());
+    }
 }

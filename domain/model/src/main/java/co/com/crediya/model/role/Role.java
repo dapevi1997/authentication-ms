@@ -34,13 +34,4 @@ public class Role {
     public void setDescriptionRole(Description descriptionRole) {
         this.descriptionRole = descriptionRole;
     }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "idRole=" + idRole +
-                ", nameRole=" + nameRole +
-                ", descriptionRole=" + descriptionRole +
-                '}';
-    }
 }

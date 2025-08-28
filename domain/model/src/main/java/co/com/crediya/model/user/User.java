@@ -108,20 +108,4 @@ public class User {
     public void setAddress(Address address) {
         this.address = address;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "idUser=" + idUser +
-                ", name=" + name +
-                ", lastName=" + lastName +
-                ", email=" + email +
-                ", birthday=" + birthday +
-                ", address=" + address +
-                ", documentId=" + documentId +
-                ", phone=" + phone +
-                ", baseSalary=" + baseSalary +
-                ", idRole=" + idRole +
-                '}';
-    }
 }

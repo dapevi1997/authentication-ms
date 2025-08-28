@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IdTest {
+class IdRoleTest {
     // El id del rol es correcto
     @Test
     void roleOk() throws ConstructionDomainException {

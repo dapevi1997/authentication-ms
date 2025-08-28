@@ -25,9 +25,4 @@ public class LastName {
     public void setLastNameUser(String lastNameUser) {
         this.lastNameUser = lastNameUser;
     }
-
-    @Override
-    public String toString() {
-        return lastNameUser;
-    }
 }

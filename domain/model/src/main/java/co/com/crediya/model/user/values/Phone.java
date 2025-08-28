@@ -24,8 +24,4 @@ public class Phone {
         this.phoneUser = phoneUser;
     }
 
-    @Override
-    public String toString() {
-        return phoneUser.toString();
-    }
 }
