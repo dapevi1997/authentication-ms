@@ -1,4 +1,4 @@
-package co.com.crediya.api;
+package co.com.crediya.api.handler;
 
 import co.com.crediya.api.dto.LoginRequestDto;
 import co.com.crediya.api.dto.LoginResponseDto;

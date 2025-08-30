@@ -23,10 +23,13 @@ public class AuthOpenApi {
     private final String INTERNAL_ERROR = HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase();
     private final String INTERNAL_ERROR_CODE = String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value());
 
+    //TODO:: socumentar 401, 403
+
     public Builder login(Builder builder) {
         return builder
                 .operationId("login")
                 .description("Login a user")
+                .summary("Login en el sistema")
                 .tag("Login")
                 .requestBody(requestBodyBuilder()
                         .required(true)

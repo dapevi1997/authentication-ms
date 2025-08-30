@@ -30,18 +30,17 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, JwtFilter jwtFilter){
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http){
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
                 .securityContextRepository(securityContextRepository)
-                .addFilterBefore(jwtFilter, SecurityWebFiltersOrder.AUTHORIZATION)
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/api/v1/login/**").permitAll()
                         .pathMatchers("/swagger-docs/**", "/api-docs/**", "/webjars/**", "/swagger-ui/**").permitAll()
                         .pathMatchers("/actuator/health").permitAll()
-                        .pathMatchers(HttpMethod.POST, "/api/v1/usuarios").permitAll()
+                        .pathMatchers(HttpMethod.POST, "/api/v1/usuarios").hasRole("ADMIN")
                         .anyExchange().authenticated()
                 )
                 .build();

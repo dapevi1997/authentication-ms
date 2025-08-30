@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS user (
 INSERT IGNORE INTO role (name, description)
 VALUES
     ('ADMIN', 'Administrador del sistema'),
+    ('ASESOR', 'Asesor de CrediYa'),
     ('CLIENT', 'Cliente de la aplicación');
 
 -- Usuario por defecto
@@ -42,10 +43,34 @@ INSERT IGNORE INTO user (
     'System',
     '1990-01-01',
     'Default Address',
-    'mail@mail.com',
+    'admin@mail.com',
     '$2a$12$RL5AZHyYbDbeqaCGx.fr0.Da7dd0fx110/h1YRBx1qsNCnv0LJz9O', -- Ejemplo hash bcrypt: admin123
     1000000000,
     3000000000,
     5000000.00000,
     1 -- Este ID debe existir en la tabla role
+),
+(
+    'Asesor',
+    'System',
+    '1990-01-01',
+    'Default Address',
+    'asesor@mail.com',
+    '$2a$12$W4lzbPTUT.EBRVv/6pEkz.INBiqH7hXPk.hZcn/K3uuOuDqM00Blu', -- Ejemplo hash bcrypt: asesor
+    1000000000,
+    3000000000,
+    5000000.00000,
+    2 -- Este ID debe existir en la tabla role
+),
+(
+    'Cliente',
+    'System',
+    '1990-01-01',
+    'Default Address',
+    'cliente@mail.com',
+    '$2a$12$HjjKfz6uoNY2iZMD30MjkuWzk09h5sLcjQ9i8vGlFs7TRbHtrWr1C', -- Ejemplo hash bcrypt: cliente
+    1000000000,
+    3000000000,
+    5000000.00000,
+    3 -- Este ID debe existir en la tabla role
 );
