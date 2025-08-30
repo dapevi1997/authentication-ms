@@ -1,6 +1,6 @@
 package co.com.crediya.api;
 
-import co.com.crediya.api.swaggerutil.OpenAPIDocs;
+import co.com.crediya.api.openapiutil.OpenAPIDocs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -11,10 +11,11 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springdoc.webflux.core.fn.SpringdocRouteBuilder.route;
 
 @Configuration
-public class RouterRest {
+public class UserRouterRest {
 
     @Bean
-    public RouterFunction<ServerResponse> routerFunction(Handler handler) {
-        return route().POST("/api/v1/usuarios", accept(MediaType.APPLICATION_JSON), handler::registerUser, ops -> ops.beanClass(OpenAPIDocs.class).beanMethod("registerUserOperation")).build();
+    public RouterFunction<ServerResponse> userRouterFunction(UserHandler userHandler) {
+        return route().POST("/api/v1/usuarios", accept(MediaType.APPLICATION_JSON), userHandler::registerUser, ops -> ops.beanClass(OpenAPIDocs.class).beanMethod("registerUserOperation"))
+                .build();
     }
 }

@@ -1,9 +1,21 @@
 package co.com.crediya.r2dbc;
 
+import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.query.ReactiveQueryByExampleExecutor;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface UserReactiveRepository extends ReactiveCrudRepository<UserEntity, Long>, ReactiveQueryByExampleExecutor<UserEntity> {
     Mono<Boolean> existsByEmail(String email);
+
+    Mono<UserEntity> findByEmail(String email);
+
+    @Query("""
+                SELECT r.id_role, r.name, r.description
+                FROM role r
+                INNER JOIN user u ON r.id_role = u.id_role
+                WHERE u.email = :email
+            """)
+    Flux<RoleEntity> findAllRolesByEmail(String email);
 }

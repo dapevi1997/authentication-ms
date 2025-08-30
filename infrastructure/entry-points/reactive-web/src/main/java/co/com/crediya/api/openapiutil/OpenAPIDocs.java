@@ -1,4 +1,4 @@
-package co.com.crediya.api.swaggerutil;
+package co.com.crediya.api.openapiutil;
 
 import co.com.crediya.api.dto.ErrorResponseDto;
 import co.com.crediya.api.dto.RegisterUserRequestDto;

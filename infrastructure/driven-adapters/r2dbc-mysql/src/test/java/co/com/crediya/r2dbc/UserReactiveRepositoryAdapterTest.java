@@ -59,7 +59,7 @@ class UserReactiveRepositoryAdapterTest {
         user.setName(new Name("Name"));
         user.setLastName(new LastName("Lastname"));
         user.setAddress(new Address("CR"));
-        user.setBirthday(new Birthday("14"));
+        user.setBirthday(new Birthday("2020-03-03"));
         user.setBaseSalary(new BaseSalary("14"));
         user.setDocumentId(new DocumentId("14"));
         user.setPhone(new Phone("14"));

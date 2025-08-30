@@ -1,6 +1,7 @@
 package co.com.crediya.api.util;
 
 import co.com.crediya.api.dto.RegisterUserRequestDto;
+import co.com.crediya.api.security.UserPrincipal;
 import co.com.crediya.model.user.User;
 import co.com.crediya.model.user.exception.ConstructionDomainException;
 import co.com.crediya.model.user.values.*;
@@ -8,6 +9,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomMapperWebFlux {
+    public static UserPrincipal userToUserPrincipal(User user) throws ConstructionDomainException {
+        return UserPrincipal
+                .builder()
+                .email(user.getEmail().getEmailUser())
+                .idRole(user.getIdRole().getIdRole())
+                .password(user.getPassword().getPassword())
+                        .build();
+
+    }
+
     public User registerUserRequestDtoToUser(RegisterUserRequestDto dto) throws ConstructionDomainException {
         User user = new User();
         user.setName(new Name(dto.getName()));

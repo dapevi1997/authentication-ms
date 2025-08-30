@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS user (
     birthdate DATE,
     address VARCHAR(255),
     email VARCHAR(150) UNIQUE NOT NULL,
+    password VARCHAR(500) NOT NULL,
     document_id BIGINT NOT NULL,
     phone BIGINT,
     base_salary DECIMAL(15,5),
@@ -32,3 +33,19 @@ INSERT IGNORE INTO role (name, description)
 VALUES
     ('ADMIN', 'Administrador del sistema'),
     ('CLIENT', 'Cliente de la aplicación');
+
+-- Usuario por defecto
+INSERT IGNORE INTO user (
+    name, lastname, birthdate, address, email, password, document_id, phone, base_salary, id_role
+) VALUES (
+    'Admin',
+    'System',
+    '1990-01-01',
+    'Default Address',
+    'mail@mail.com',
+    '$2a$12$RL5AZHyYbDbeqaCGx.fr0.Da7dd0fx110/h1YRBx1qsNCnv0LJz9O', -- Ejemplo hash bcrypt: admin123
+    1000000000,
+    3000000000,
+    5000000.00000,
+    1 -- Este ID debe existir en la tabla role
+);

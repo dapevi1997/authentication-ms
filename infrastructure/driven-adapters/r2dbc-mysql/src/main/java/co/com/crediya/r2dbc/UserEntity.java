@@ -33,6 +33,9 @@ public class UserEntity {
     @Column("email")
     private String email;
 
+    @Column("password")
+    private String password;
+
     @Column("document_id")
     private Long documentoIdentidad;
 
@@ -123,5 +126,13 @@ public class UserEntity {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

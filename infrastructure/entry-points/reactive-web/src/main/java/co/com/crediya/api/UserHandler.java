@@ -21,14 +21,14 @@ import java.util.List;
 
 @Component
 @Slf4j
-public class Handler {
+public class UserHandler {
     private final RequestValidator requestValidator;
     private  final RegisterUserUseCase registerUserUseCase;
     private final GetAllRolesUseCase getAllRolesUseCase;
     private final ObjectMapper objectMapper;
     private final CustomMapperWebFlux customMaper;
 
-    public Handler(RequestValidator requestValidator, RegisterUserUseCase registerUserUseCase, GetAllRolesUseCase getAllRolesUseCase, ObjectMapper objectMapper, CustomMapperWebFlux customMaper) {
+    public UserHandler(RequestValidator requestValidator, RegisterUserUseCase registerUserUseCase, GetAllRolesUseCase getAllRolesUseCase, ObjectMapper objectMapper, CustomMapperWebFlux customMaper) {
         this.requestValidator = requestValidator;
         this.registerUserUseCase = registerUserUseCase;
         this.getAllRolesUseCase = getAllRolesUseCase;

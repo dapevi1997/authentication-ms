@@ -14,6 +14,9 @@ import co.com.crediya.model.user.values.LastName;
 import co.com.crediya.model.user.values.Name;
 import co.com.crediya.model.user.values.Phone;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class UserTest {
     @Test
     void userSettersAndGetters() throws ConstructionDomainException {
@@ -63,6 +66,7 @@ class UserTest {
         Phone phone = new Phone("9876543210");
         BaseSalary baseSalary = new BaseSalary("2000.0");
         IdRole idRole = new IdRole("2");
+
 
         User user = new User(name, lastName, email, birthday, address, documentId, phone,
                 baseSalary, idRole);

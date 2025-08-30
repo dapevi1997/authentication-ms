@@ -45,6 +45,7 @@ public class CustomMapperR2dbc {
             user.setPhone(new Phone(userEntity.getPhone().toString()));
             user.setEmail(new Email(userEntity.getEmail()));
             user.setBaseSalary(new BaseSalary(userEntity.getBaseSalary().toString()));
+            user.setPassword(new Password(userEntity.getPassword()));
             return user;
     }
 
