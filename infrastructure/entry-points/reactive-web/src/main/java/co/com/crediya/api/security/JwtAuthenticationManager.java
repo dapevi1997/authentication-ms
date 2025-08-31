@@ -1,7 +1,6 @@
 package co.com.crediya.api.security;
 
 import co.com.crediya.api.security.util.JwtService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +12,6 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @Component
-@Slf4j
 public class JwtAuthenticationManager implements ReactiveAuthenticationManager {
     private final JwtService jwtService;
 
