@@ -8,17 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggerAdapter implements LoggerGateway {
     @Override
-    public void info(String message) {
-        log.info(message);
+    public void info(String message, Object... arguments) {
+        log.info(message, arguments);
     }
 
     @Override
-    public void warn(String message) {
-        log.warn(message);
-    }
-
-    @Override
-    public void error(String message, Throwable throwable) {
-        log.error(message, throwable);
+    public void error(String message, Object... arguments) {
+        log.error(message, arguments);
     }
 }

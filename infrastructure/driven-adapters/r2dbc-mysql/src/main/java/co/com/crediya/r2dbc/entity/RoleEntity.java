@@ -1,4 +1,4 @@
-package co.com.crediya.r2dbc;
+package co.com.crediya.r2dbc.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

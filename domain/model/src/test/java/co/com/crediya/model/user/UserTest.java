@@ -1,21 +1,10 @@
 package co.com.crediya.model.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import co.com.crediya.model.user.values.*;
 import org.junit.jupiter.api.Test;
 import co.com.crediya.model.user.exception.ConstructionDomainException;
-import co.com.crediya.model.user.values.Address;
-import co.com.crediya.model.user.values.BaseSalary;
-import co.com.crediya.model.user.values.Birthday;
-import co.com.crediya.model.user.values.DocumentId;
-import co.com.crediya.model.user.values.Email;
-import co.com.crediya.model.user.values.IdRole;
-import co.com.crediya.model.user.values.IdUser;
-import co.com.crediya.model.user.values.LastName;
-import co.com.crediya.model.user.values.Name;
-import co.com.crediya.model.user.values.Phone;
-
-import java.util.ArrayList;
-import java.util.List;
 
 class UserTest {
     @Test
@@ -66,10 +55,20 @@ class UserTest {
         Phone phone = new Phone("9876543210");
         BaseSalary baseSalary = new BaseSalary("2000.0");
         IdRole idRole = new IdRole("2");
+        Password password = new Password("password");
 
+        User user = new User();
+        user.setName(name);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        user.setBirthday(birthday);
+        user.setAddress(address);
+        user.setDocumentId(documentId);
+        user.setPhone(phone);
+        user.setBaseSalary(baseSalary);
+        user.setIdRole(idRole);
+        user.setPassword(password);
 
-        User user = new User(name, lastName, email, birthday, address, documentId, phone,
-                baseSalary, idRole);
         assertEquals(name, user.getName());
         assertEquals(lastName, user.getLastName());
         assertEquals(email, user.getEmail());
@@ -79,5 +78,6 @@ class UserTest {
         assertEquals(phone, user.getPhone());
         assertEquals(baseSalary, user.getBaseSalary());
         assertEquals(idRole, user.getIdRole());
+        assertEquals(password, user.getPassword());
     }
 }

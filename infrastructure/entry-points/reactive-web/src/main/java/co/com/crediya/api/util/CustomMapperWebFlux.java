@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomMapperWebFlux {
-    public static UserPrincipal userToUserPrincipal(User user) throws ConstructionDomainException {
+
+    public static UserPrincipal userToUserPrincipal(User user) {
         return UserPrincipal
                 .builder()
                 .email(user.getEmail().getEmailUser())
@@ -30,6 +31,7 @@ public class CustomMapperWebFlux {
         user.setBaseSalary(new BaseSalary(dto.getBaseSalary()));
         user.setIdRole(new IdRole(dto.getIdRole()));
         user.setPhone(new Phone(dto.getPhone()));
+        user.setPassword(new Password(dto.getPassword()));
         return user;
     }
 }

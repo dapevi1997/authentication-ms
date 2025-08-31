@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class LoginRequestDto implements Serializable {
     @NotBlank(message = "El campo email no puede estar vacío")
     @NotNull(message = "El campo email no puede ser nulo")
-    @Schema(description = "Correo del usuario que quiere hacer login", examples = "mail@mail.com")
+    @Schema(description = "Correo del usuario que quiere hacer login", examples = "admin@mail.com")
     private String email;
     @NotBlank(message = "El clave password no puede estar vacío")
     @NotNull(message = "El campo password no puede ser nulo")

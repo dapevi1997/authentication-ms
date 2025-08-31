@@ -6,6 +6,7 @@ import co.com.crediya.model.user.exception.ConstructionDomainException;
 import co.com.crediya.model.user.exception.DomainException;
 import co.com.crediya.model.user.gateways.UserRepository;
 import co.com.crediya.model.user.values.Email;
+import co.com.crediya.r2dbc.entity.UserEntity;
 import co.com.crediya.r2dbc.helper.CustomMapperR2dbc;
 import co.com.crediya.r2dbc.helper.ReactiveAdapterOperations;
 import org.reactivecommons.utils.ObjectMapper;
@@ -17,7 +18,7 @@ import reactor.core.publisher.Mono;
 @Repository
 public class UserRepositoryAdapter extends ReactiveAdapterOperations<
         User,
-    UserEntity,
+        UserEntity,
     Long,
         UserReactiveRepository
 > implements UserRepository {

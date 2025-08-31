@@ -13,14 +13,14 @@ import static org.springdoc.core.fn.builders.schema.Builder.schemaBuilder;
 
 @UtilityClass
 public class UserOpenApi {
-    private final String SUCCESS = "Success";
-    private final String SUCCESS_CODE = String.valueOf(HttpStatus.OK.value());
     private final String CONFLICT_CODE = String.valueOf(HttpStatus.CONFLICT.value());
     private final String CREATED_CODE = String.valueOf(HttpStatus.CREATED.value());
-    private final String BAD_REQUEST = HttpStatus.BAD_REQUEST.getReasonPhrase();
     private final String BAD_REQUEST_CODE = String.valueOf(HttpStatus.BAD_REQUEST.value());
-    private final String INTERNAL_ERROR = HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase();
     private final String INTERNAL_ERROR_CODE = String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    private final String UNAUTHORIZED_CODE = String.valueOf(HttpStatus.UNAUTHORIZED.value());
+    private final String UNAUTHORIZED = HttpStatus.UNAUTHORIZED.getReasonPhrase();
+    private final String FORBIDDEN_CODE = String.valueOf(HttpStatus.FORBIDDEN.value());
+    private final String FORBIDDEN = HttpStatus.FORBIDDEN.getReasonPhrase();
 
     public Builder registerUser(Builder builder) {
         return builder
@@ -39,7 +39,7 @@ public class UserOpenApi {
 
                 // 200 OK
                 .response(responseBuilder()
-                        .responseCode(SUCCESS_CODE)
+                        .responseCode(CREATED_CODE)
                         .description("Usuario registrado correctamente")
                         .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
                                 .schema(schemaBuilder().implementation(RegisterUserResponseDto.class))))
@@ -48,6 +48,20 @@ public class UserOpenApi {
                 .response(responseBuilder()
                         .responseCode(BAD_REQUEST_CODE)
                         .description("Error en la solicitud")
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
+
+                // 401 Unauthorized
+                .response(responseBuilder()
+                        .responseCode(UNAUTHORIZED_CODE)
+                        .description(UNAUTHORIZED)
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
+
+                // 403 Forbiden
+                .response(responseBuilder()
+                        .responseCode(FORBIDDEN_CODE)
+                        .description(FORBIDDEN)
                         .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
                                 .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
 

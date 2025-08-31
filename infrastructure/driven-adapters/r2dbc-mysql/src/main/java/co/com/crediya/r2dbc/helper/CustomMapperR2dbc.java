@@ -5,8 +5,8 @@ import co.com.crediya.model.role.values.Description;
 import co.com.crediya.model.user.User;
 import co.com.crediya.model.user.exception.ConstructionDomainException;
 import co.com.crediya.model.user.values.*;
-import co.com.crediya.r2dbc.RoleEntity;
-import co.com.crediya.r2dbc.UserEntity;
+import co.com.crediya.r2dbc.entity.RoleEntity;
+import co.com.crediya.r2dbc.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,6 +22,7 @@ public class CustomMapperR2dbc {
         userEntity.setDocumentoIdentidad(user.getDocumentId().getDocumentoIdentidadUsuario());
         userEntity.setBaseSalary(user.getBaseSalary().getBaseSalaryUser());
         userEntity.setIdRol(user.getIdRole().getIdRole());
+        userEntity.setPassword(user.getPassword().getPassword());
         return userEntity;
     }
 

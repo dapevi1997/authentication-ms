@@ -19,8 +19,4 @@ public class DocumentId {
     public Long getDocumentoIdentidadUsuario() {
         return documentoIdentidadUsuario;
     }
-
-    public void setDocumentoIdentidadUsuario(Long documentoIdentidadUsuario) {
-        this.documentoIdentidadUsuario = documentoIdentidadUsuario;
-    }
 }

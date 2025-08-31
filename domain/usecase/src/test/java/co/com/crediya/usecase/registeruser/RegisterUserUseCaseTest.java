@@ -1,5 +1,6 @@
 package co.com.crediya.usecase.registeruser;
 
+import co.com.crediya.model.logger.LoggerGateway;
 import co.com.crediya.model.user.User;
 import co.com.crediya.model.user.exception.DomainException;
 import co.com.crediya.model.user.gateways.UserRepository;
@@ -18,6 +19,8 @@ import static org.mockito.Mockito.*;
 class RegisterUserUseCaseTest {
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private LoggerGateway loggerGateway;
     @InjectMocks
     private RegisterUserUseCase useCase;
 

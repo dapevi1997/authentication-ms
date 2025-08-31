@@ -3,6 +3,7 @@ package co.com.crediya.r2dbc;
 import co.com.crediya.model.user.User;
 import co.com.crediya.model.user.exception.ConstructionDomainException;
 import co.com.crediya.model.user.values.*;
+import co.com.crediya.r2dbc.entity.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -64,6 +65,7 @@ class UserReactiveRepositoryAdapterTest {
         user.setDocumentId(new DocumentId("14"));
         user.setPhone(new Phone("14"));
         user.setIdRole(new IdRole("2"));
+        user.setEmail(new Email("email@mail.com"));
 
         UserEntity userEntity = new UserEntity();
         userEntity.setIdUser(1L);
@@ -75,6 +77,7 @@ class UserReactiveRepositoryAdapterTest {
         userEntity.setDocumentoIdentidad(14L);
         userEntity.setPhone(14L);
         userEntity.setIdRol(2L);
+        userEntity.setEmail("email@mail.com");
 
         when(repository.save(userEntity)).thenReturn(Mono.just(userEntity));
         when(mapper.map(userEntity, User.class)).thenReturn(user);

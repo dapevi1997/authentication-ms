@@ -15,15 +15,11 @@ import static org.springdoc.core.fn.builders.schema.Builder.schemaBuilder;
 
 @UtilityClass
 public class AuthOpenApi {
-    private final String SUCCESS = "Success";
     private final String SUCCESS_CODE = String.valueOf(HttpStatus.OK.value());
-    private final String CREATED_CODE = String.valueOf(HttpStatus.CREATED.value());
     private final String BAD_REQUEST = HttpStatus.BAD_REQUEST.getReasonPhrase();
     private final String BAD_REQUEST_CODE = String.valueOf(HttpStatus.BAD_REQUEST.value());
     private final String INTERNAL_ERROR = HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase();
     private final String INTERNAL_ERROR_CODE = String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value());
-
-    //TODO:: socumentar 401, 403
 
     public Builder login(Builder builder) {
         return builder
@@ -40,7 +36,10 @@ public class AuthOpenApi {
                                 .schema(schemaBuilder().implementation(LoginResponseDto.class))))
                 .response(responseBuilder().responseCode(BAD_REQUEST_CODE).description(BAD_REQUEST)
                         .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
-                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))));
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
+                        .response(responseBuilder().responseCode(INTERNAL_ERROR_CODE).description(INTERNAL_ERROR)
+                .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                        .schema(schemaBuilder().implementation(ErrorResponseDto.class))));
     }
 
 }
