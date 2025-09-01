@@ -14,6 +14,14 @@ class DescriptionTest {
     }
 
     @Test
+    void descriptionOk() throws ConstructionDomainException {
+        String descInput = "Rol de administrador";
+        Description desc = new Description(descInput);
+        desc.setDescriptionRole("Nuevo rol de administrador");
+        assertEquals("Nuevo rol de administrador", desc.getDescriptionRole());
+    }
+
+    @Test
     void descriptionRoleNull() {
         String descInput = null;
         assertThrows(ConstructionDomainException.class, () -> new Description(descInput));

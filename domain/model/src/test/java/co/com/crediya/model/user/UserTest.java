@@ -1,21 +1,11 @@
 package co.com.crediya.model.user;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import co.com.crediya.model.user.values.*;
 import org.junit.jupiter.api.Test;
 import co.com.crediya.model.user.exception.ConstructionDomainException;
-import co.com.crediya.model.user.values.Address;
-import co.com.crediya.model.user.values.BaseSalary;
-import co.com.crediya.model.user.values.Birthday;
-import co.com.crediya.model.user.values.DocumentId;
-import co.com.crediya.model.user.values.Email;
-import co.com.crediya.model.user.values.IdRole;
-import co.com.crediya.model.user.values.IdUser;
-import co.com.crediya.model.user.values.LastName;
-import co.com.crediya.model.user.values.Name;
-import co.com.crediya.model.user.values.Phone;
 
-import java.util.ArrayList;
-import java.util.List;
 
 class UserTest {
     @Test
@@ -30,6 +20,7 @@ class UserTest {
         BaseSalary baseSalary = new BaseSalary("1000.0");
         IdRole idRole = new IdRole("1");
         IdUser idUser = new IdUser("99");
+        Password password = new Password("securePass123");
 
         User user = new User();
         user.setName(name);
@@ -42,6 +33,7 @@ class UserTest {
         user.setBaseSalary(baseSalary);
         user.setIdRole(idRole);
         user.setIdUser(idUser);
+        user.setPassword(password);
 
         assertEquals(name, user.getName());
         assertEquals(lastName, user.getLastName());
@@ -53,6 +45,7 @@ class UserTest {
         assertEquals(baseSalary, user.getBaseSalary());
         assertEquals(idRole, user.getIdRole());
         assertEquals(idUser, user.getIdUser());
+        assertEquals(password, user.getPassword());
     }
 
     @Test
