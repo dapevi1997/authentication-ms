@@ -1,6 +1,7 @@
-package co.com.crediya.api;
+package co.com.crediya.api.route;
 
-import co.com.crediya.api.openapiutil.OpenAPIDocs;
+import co.com.crediya.api.handler.UserHandler;
+import co.com.crediya.api.openapiutil.UserOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -15,7 +16,7 @@ public class UserRouterRest {
 
     @Bean
     public RouterFunction<ServerResponse> userRouterFunction(UserHandler userHandler) {
-        return route().POST("/api/v1/usuarios", accept(MediaType.APPLICATION_JSON), userHandler::registerUser, ops -> ops.beanClass(OpenAPIDocs.class).beanMethod("registerUserOperation"))
+        return route().POST("/api/v1/usuarios", accept(MediaType.APPLICATION_JSON), userHandler::registerUser, UserOpenApi::registerUser)
                 .build();
     }
 }

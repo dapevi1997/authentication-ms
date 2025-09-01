@@ -19,8 +19,4 @@ public class Description {
     public String getDescriptionRole() {
         return descriptionRole;
     }
-
-    public void setDescriptionRole(String descriptionRole) {
-        this.descriptionRole = descriptionRole;
-    }
 }

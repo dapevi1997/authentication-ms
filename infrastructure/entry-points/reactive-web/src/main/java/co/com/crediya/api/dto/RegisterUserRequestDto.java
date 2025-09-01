@@ -31,6 +31,10 @@ public class RegisterUserRequestDto implements Serializable {
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", message = "El email debe tener formato correcto")
     @Schema(description = "Email del usuario", examples = "user@mail.com")
     private String email;
+    @JsonProperty("password")
+    @NotNull(message = "El campo password no puede ser nulo")
+    @Schema(description = "Contraseña del usuario", examples = "sdf123")
+    private String password;
     @JsonProperty("numero_documento")
     @NotBlank(message = "El campo numero_documento no puede estar vacío")
     @NotNull(message = "El campo numero_documento no puede ser nulo")
@@ -130,13 +134,22 @@ public class RegisterUserRequestDto implements Serializable {
         this.address = address;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "RegisterUserRequestDto{" +
                 "name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", adress='" + address + '\'' +
+                ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", documentId='" + documentId + '\'' +
                 ", phone='" + phone + '\'' +
                 ", baseSalary='" + baseSalary + '\'' +

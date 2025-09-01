@@ -19,7 +19,8 @@ public class IdUser {
         return idUser;
     }
 
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
+    @Override
+    public String toString() {
+        return idUser.toString();
     }
 }

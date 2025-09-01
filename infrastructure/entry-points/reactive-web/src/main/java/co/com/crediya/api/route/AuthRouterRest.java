@@ -1,5 +1,6 @@
-package co.com.crediya.api;
+package co.com.crediya.api.route;
 
+import co.com.crediya.api.handler.AuthHandler;
 import co.com.crediya.api.openapiutil.AuthOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
