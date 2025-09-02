@@ -78,7 +78,7 @@ public class SecurityConfig {
                         .pathMatchers("/api/v1/login/**").permitAll()
                         .pathMatchers("/swagger-docs/**", "/api-docs/**", "/webjars/**", "/swagger-ui/**").permitAll()
                         .pathMatchers("/actuator/health").permitAll()
-                        .pathMatchers(HttpMethod.POST, Constantes.URL_REGISTER_USER).hasAnyRole(ADMIN.name(), ASESOR.name())
+                        .pathMatchers(HttpMethod.POST, Constantes.URL_REGISTER_USER).hasAnyRole(ROLE_ADMIN.name(), ROLE_ASESOR.name())
                         .anyExchange().authenticated()
                 )
                 .build();

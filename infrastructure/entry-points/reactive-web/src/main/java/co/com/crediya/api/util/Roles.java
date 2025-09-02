@@ -1,7 +1,7 @@
 package co.com.crediya.api.util;
 
 public enum Roles {
-    ADMIN,
-    ASESOR,
-    CLIENT
+    ROLE_ADMIN,
+    ROLE_ASESOR,
+    ROLE_CLIENT
 }

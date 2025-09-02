@@ -45,13 +45,16 @@ public class UserHandler {
                 .flatMap(this::buildandReturnUserDomail)
                 .flatMap(this::validateRolExits)
                 .flatMap(registerUserUseCase::registerUser)
-                .flatMap(user -> {
-                    RegisterUserResponseDto registerUserResponseDto = new RegisterUserResponseDto();
-                    registerUserResponseDto.setIdUser(user.getIdUser().toString());
-                    registerUserResponseDto.setIdRole(user.getIdRole().toString());
-                    registerUserResponseDto.setMessage("Usuario registrado exitosamente.");
-                    return ServerResponse.ok().bodyValue(registerUserResponseDto);
-                });
+                .flatMap(user -> ServerResponse.ok().bodyValue(
+                        RegisterUserResponseDto.builder()
+                                .idUser(user.getIdUser().toString())
+                                .idRole(user.getIdRole().toString())
+                                .email(user.getEmail().getEmailUser())
+                                .nombre(user.getName().getNameUser())
+                                .salarioBase(user.getBaseSalary().getBaseSalaryUser().toString())
+                                .message("Usuario registrado exitosamente")
+                                .build()
+                ));
     }
 
     private Mono<User> buildandReturnUserDomail(RegisterUserRequestDto registerUserRequestDto) {
@@ -75,14 +78,21 @@ public class UserHandler {
     }
 
     private Mono<RegisterUserRequestDto> validateRequest(RegisterUserRequestDto registerUserRequestDto) {
-        List<String> listErrors = requestValidator.validate(registerUserRequestDto);
+        return Mono.defer(() -> {
+            List<String> listErrors = requestValidator.validate(registerUserRequestDto);
 
-        if (!listErrors.isEmpty()) {
-            loggerGateway.error("Error en el request de agregar usuario con email {}. Errores: {}", registerUserRequestDto.getEmail(), String.join(", ", listErrors));
-            return Mono.error(new BadRequestException(String.join(", ", listErrors)));
-        }
-        return Mono.just(registerUserRequestDto);
+            if (!listErrors.isEmpty()) {
+                String errors = String.join(", ", listErrors);
+                loggerGateway.error(
+                        "Error en el request de agregar usuario con email {}. Errores: {}",
+                        registerUserRequestDto.getEmail(),
+                        errors
+                );
+                return Mono.error(new BadRequestException(errors));
+            }
+
+            return Mono.just(registerUserRequestDto);
+        });
     }
-
 
 }

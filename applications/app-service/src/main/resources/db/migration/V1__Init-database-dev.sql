@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS user (
     name VARCHAR(100) NOT NULL,
     lastname VARCHAR(100) NOT NULL,
     birthdate DATE,
+    created_at DATE,
     address VARCHAR(255),
     email VARCHAR(150) UNIQUE NOT NULL,
     password VARCHAR(500) NOT NULL,
@@ -31,16 +32,17 @@ CREATE TABLE IF NOT EXISTS user (
 
 INSERT IGNORE INTO role (name, description)
 VALUES
-    ('ADMIN', 'Administrador del sistema'),
-    ('ASESOR', 'Asesor de CrediYa'),
-    ('CLIENT', 'Cliente de la aplicación');
+    ('ROLE_ADMIN', 'Administrador del sistema'),
+    ('ROLE_ASESOR', 'Asesor de CrediYa'),
+    ('ROLE_CLIENT', 'Cliente de la aplicación');
 
 -- Usuario por defecto
 INSERT IGNORE INTO user (
-    name, lastname, birthdate, address, email, password, document_id, phone, base_salary, id_role
+    name, lastname, birthdate, created_at, address, email, password, document_id, phone, base_salary, id_role
 ) VALUES (
     'Admin',
     'System',
+    '1990-01-01',
     '1990-01-01',
     'Default Address',
     'admin@mail.com',
@@ -54,6 +56,7 @@ INSERT IGNORE INTO user (
     'Asesor',
     'System',
     '1990-01-01',
+    '1990-01-01',
     'Default Address',
     'asesor@mail.com',
     '$2a$12$W4lzbPTUT.EBRVv/6pEkz.INBiqH7hXPk.hZcn/K3uuOuDqM00Blu', -- Ejemplo hash bcrypt: asesor
@@ -65,6 +68,7 @@ INSERT IGNORE INTO user (
 (
     'Cliente',
     'System',
+    '1990-01-01',
     '1990-01-01',
     'Default Address',
     'cliente@mail.com',

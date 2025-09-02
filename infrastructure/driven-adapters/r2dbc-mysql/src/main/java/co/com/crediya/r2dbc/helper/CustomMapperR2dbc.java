@@ -23,6 +23,7 @@ public class CustomMapperR2dbc {
         userEntity.setBaseSalary(user.getBaseSalary().getBaseSalaryUser());
         userEntity.setIdRol(user.getIdRole().getIdRole());
         userEntity.setPassword(user.getPassword().getPassword());
+        userEntity.setCreatedAt(user.getCreatedAt().getCreatedAt());
         return userEntity;
     }
 
@@ -47,6 +48,7 @@ public class CustomMapperR2dbc {
             user.setEmail(new Email(userEntity.getEmail()));
             user.setBaseSalary(new BaseSalary(userEntity.getBaseSalary().toString()));
             user.setPassword(new Password(userEntity.getPassword()));
+            user.setCreatedAt(new CreatedAt(userEntity.getCreatedAt().toString()));
             return user;
     }
 

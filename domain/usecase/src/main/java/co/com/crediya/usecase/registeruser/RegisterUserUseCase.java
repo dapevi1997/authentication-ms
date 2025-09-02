@@ -17,14 +17,18 @@ public class RegisterUserUseCase {
 
     public Mono<User> registerUser(User user) {
         return userRepository.existByEmail(user.getEmail())
-                .flatMap(exits -> {
-                    if (exits){
-                        loggerGateway.error("Ya existe un usuario con email {}", user.getEmail().getEmailUser());
-                        return Mono.error(new DomainException("Ya existe un usuario con email " + user.getEmail().getEmailUser()));
-                    }
-                    return userRepository.save(user);
-                })
-                .doOnSuccess(savedUser -> loggerGateway.info("Usuario registrado exitosamente con id {}", savedUser.getIdUser().toString()))
-                .doOnError(error -> loggerGateway.error("Error en registro de usuario con email {}. Mensaje: {}", user.getEmail().getEmailUser(), error.getMessage()));
+                .filter(exists -> !exists) // dejamos pasar solo si NO existe
+                .switchIfEmpty(Mono.defer(() -> {
+                    loggerGateway.error("Ya existe un usuario con email {}", user.getEmail().getEmailUser());
+                    return Mono.error(new DomainException("Ya existe un usuario con email " + user.getEmail().getEmailUser()));
+                }))
+                .then(userRepository.save(user))
+                .doOnSuccess(savedUser ->
+                        loggerGateway.info("Usuario registrado exitosamente con id {}", savedUser.getIdUser())
+                )
+                .doOnError(error ->
+                        loggerGateway.error("Error en registro de usuario con email {}. Mensaje: {}",
+                                user.getEmail().getEmailUser(), error.getMessage())
+                );
     }
 }

@@ -43,60 +43,60 @@ public class AuthHandler {
     }
 
     private Mono<UserWithRequest> validateUserCredentials(LoginRequestDto loginRequestDto) {
-        try {
-            loggerGateway.info("{} Se va a buscar usuario por email {}", Constantes.TRAZA_AUTH, loginRequestDto.getEmail());
+        return Mono.fromCallable(() -> new Email(loginRequestDto.getEmail()))
+                .onErrorMap(ConstructionDomainException.class, e -> {
+                    loggerGateway.error("{} Error validando email: {}", Constantes.TRAZA_AUTH, e.getMessage());
+                    return new DomainException("Email inválido");
+                })
+                .flatMap(email -> {
+                    loggerGateway.info("{} Se va a buscar usuario por email {}", Constantes.TRAZA_AUTH, loginRequestDto.getEmail());
 
-            return userRepository.findByEmail(new Email(loginRequestDto.getEmail()))
-                    .switchIfEmpty(
-                            Mono.defer(() -> {
+                    return userRepository.findByEmail(email)
+                            .switchIfEmpty(Mono.defer(() -> {
                                 loggerGateway.error("{} Usuario no encontrado con email {}", Constantes.TRAZA_AUTH, loginRequestDto.getEmail());
                                 return Mono.error(new DomainException("Credenciales inválidas"));
-                            })
-                    )
-                    .filter(user -> passwordEncoder.matches(
-                            loginRequestDto.getPassword(),
-                            user.getPassword().getPassword()
-                    ))
-                    .switchIfEmpty(
-                            Mono.defer(() -> {
-                                loggerGateway.error(Constantes.TRAZA_AUTH + "Revisar credenciales. Usuario ingresado: {}",  loginRequestDto.getEmail());
+                            }))
+                            .filter(user -> passwordEncoder.matches(
+                                    loginRequestDto.getPassword(),
+                                    user.getPassword().getPassword()
+                            ))
+                            .switchIfEmpty(Mono.defer(() -> {
+                                loggerGateway.error(Constantes.TRAZA_AUTH + "Revisar credenciales. Usuario ingresado: {}", loginRequestDto.getEmail());
                                 return Mono.error(new DomainException("Credenciales inválidas"));
-                            })
-                    )
-                    .map(user -> new UserWithRequest(loginRequestDto, user));
-
-        } catch (ConstructionDomainException e) {
-            loggerGateway.error("{} Error validando email: {}", Constantes.TRAZA_AUTH, e.getMessage());
-            return Mono.error(new DomainException("Email inválido"));
-        }
+                            }))
+                            .map(user -> new UserWithRequest(loginRequestDto, user));
+                });
     }
 
 
     private Mono<UserPrincipal> buildUserPrincipal(UserWithRequest userWithRequest) {
-        IdRole idRole;
-        try {
-            idRole = new IdRole(userWithRequest.user().getIdRole().getIdRole().toString());
-        } catch (ConstructionDomainException e) {
-            loggerGateway.error(Constantes.TRAZA_AUTH  + "Error contructor IdRole, mensaje: {}", e.getMessage());
-            return Mono.error(new DomainException("Error al construir IdRole"));
-        }
-
-        return roleRepository.findById(idRole)
-                .map(role -> {
-                    UserPrincipal userPrincipal = CustomMapperWebFlux.userToUserPrincipal(userWithRequest.user());
-                    userPrincipal.setNameRole(role.getNameRole().getNameRole());
-                    return userPrincipal;
-                });
+        return Mono.fromCallable(() ->
+                        new IdRole(userWithRequest.user().getIdRole().getIdRole().toString())
+                )
+                .onErrorMap(ConstructionDomainException.class, e -> {
+                    loggerGateway.error(Constantes.TRAZA_AUTH + "Error constructor IdRole, mensaje: {}", e.getMessage());
+                    return new DomainException("Error al construir IdRole");
+                })
+                .flatMap(idRole ->
+                        roleRepository.findById(idRole)
+                                .map(role -> {
+                                    UserPrincipal userPrincipal = CustomMapperWebFlux.userToUserPrincipal(userWithRequest.user());
+                                    userPrincipal.setNameRole(role.getNameRole().getNameRole());
+                                    return userPrincipal;
+                                })
+                );
     }
 
     private Mono<ServerResponse> generateTokenResponse(UserPrincipal userPrincipal) {
-        String generatedToken = jwtService.generateToken(userPrincipal);
-        loggerGateway.info(Constantes.TRAZA_AUTH + "Token generado para usuario {}", userPrincipal.getEmail());
-        return ServerResponse.ok().bodyValue(
-                LoginResponseDto.builder()
-                        .token(generatedToken)
+        return Mono.fromSupplier(() -> jwtService.generateToken(userPrincipal))
+                .doOnNext(token ->
+                        loggerGateway.info(Constantes.TRAZA_AUTH + "Token generado para usuario {}", userPrincipal.getEmail())
+                )
+                .map(token -> LoginResponseDto.builder()
+                        .token(token)
                         .build()
-        );
+                )
+                .flatMap(responseDto -> ServerResponse.ok().bodyValue(responseDto));
     }
 
     private record UserWithRequest(LoginRequestDto request, co.com.crediya.model.user.User user) {}
