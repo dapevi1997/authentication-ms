@@ -22,6 +22,7 @@ public class UserRouterRest {
     @Bean
     public RouterFunction<ServerResponse> userRouterFunction(UserHandler userHandler) {
         return route().POST(userPath.getSaveUser(), accept(MediaType.APPLICATION_JSON), userHandler::registerUser, UserOpenApi::registerUser)
+                .GET(userPath.getFindUserByEmail(), accept(MediaType.APPLICATION_JSON), userHandler::findUserByEmail, UserOpenApi::findUserByEmail)
                 .build();
     }
 }

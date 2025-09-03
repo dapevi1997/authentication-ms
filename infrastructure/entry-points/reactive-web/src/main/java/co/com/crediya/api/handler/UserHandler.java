@@ -9,9 +9,12 @@ import co.com.crediya.model.user.User;
 import co.com.crediya.model.user.exception.DomainException;
 import co.com.crediya.model.user.exception.ConstructionDomainException;
 import co.com.crediya.requestvalidator.RequestValidator;
+import co.com.crediya.usecase.finduserbyemail.FindUserByEmailUseCase;
 import co.com.crediya.usecase.getallroles.GetAllRolesUseCase;
 import co.com.crediya.usecase.registeruser.RegisterUserUseCase;
+import lombok.RequiredArgsConstructor;
 import org.reactivecommons.utils.ObjectMapper;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -19,6 +22,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Component
 public class UserHandler {
     private final RequestValidator requestValidator;
@@ -27,15 +31,7 @@ public class UserHandler {
     private final ObjectMapper objectMapper;
     private final CustomMapperWebFlux customMaper;
     private final LoggerGateway loggerGateway;
-
-    public UserHandler(RequestValidator requestValidator, RegisterUserUseCase registerUserUseCase, GetAllRolesUseCase getAllRolesUseCase, ObjectMapper objectMapper, CustomMapperWebFlux customMaper, LoggerGateway loggerGateway) {
-        this.requestValidator = requestValidator;
-        this.registerUserUseCase = registerUserUseCase;
-        this.getAllRolesUseCase = getAllRolesUseCase;
-        this.objectMapper = objectMapper;
-        this.customMaper = customMaper;
-        this.loggerGateway = loggerGateway;
-    }
+    private final FindUserByEmailUseCase findUserByEmailUseCase;
 
     public Mono<ServerResponse> registerUser(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(RegisterUserRequestDto.class)
@@ -95,4 +91,14 @@ public class UserHandler {
         });
     }
 
+    public Mono<ServerResponse> findUserByEmail(ServerRequest serverRequest) {
+        return Mono.justOrEmpty(serverRequest.queryParam("email"))
+                .switchIfEmpty(Mono.error(new BadRequestException("El parámetro 'email' es obligatorio")))
+                .flatMap(findUserByEmailUseCase::findUserByEmail)
+                .map(customMaper::userToFindUSerByEmailDto)
+                .flatMap(dto -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(dto)
+                );
+    }
 }

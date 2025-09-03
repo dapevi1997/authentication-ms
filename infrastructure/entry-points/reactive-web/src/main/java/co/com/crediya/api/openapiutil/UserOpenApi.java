@@ -79,4 +79,55 @@ public class UserOpenApi {
                         .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
                                 .schema(schemaBuilder().implementation(ErrorResponseDto.class))));
     }
+
+    public Builder findUserByEmail(Builder builder) {
+        return builder
+                .operationId("findUserByEmail")
+                .summary("Devuelve el usuario con email si existe")
+                .description("Endpoint para recuperar un usuario por email")
+                .tag("Users")
+                .security(org.springdoc.core.fn.builders.securityrequirement.Builder.securityRequirementBuilder().name("bearerAuth"))
+
+                // 200 OK
+                .response(responseBuilder()
+                        .responseCode(CREATED_CODE)
+                        .description("Usuario retornado correctamente")
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(FindUserByEmailResponseDto.class))))
+
+                // 400 Bad Request
+                .response(responseBuilder()
+                        .responseCode(BAD_REQUEST_CODE)
+                        .description("Error en la solicitud")
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
+
+                // 401 Unauthorized
+                .response(responseBuilder()
+                        .responseCode(UNAUTHORIZED_CODE)
+                        .description(UNAUTHORIZED)
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
+
+                // 403 Forbiden
+                .response(responseBuilder()
+                        .responseCode(FORBIDDEN_CODE)
+                        .description(FORBIDDEN)
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
+
+                // 409 Conflict
+                .response(responseBuilder()
+                        .responseCode(CONFLICT_CODE)
+                        .description("Conflicto al registrar el usuario")
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
+
+                // 500 Internal Server Error
+                .response(responseBuilder()
+                        .responseCode(INTERNAL_ERROR_CODE)
+                        .description("Error interno del servidor")
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))));
+    }
 }

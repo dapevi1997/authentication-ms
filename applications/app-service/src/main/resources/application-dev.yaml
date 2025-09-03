@@ -26,6 +26,7 @@ routes:
   paths:
     saveUser: "/api/v1/usuarios"
     login: "/api/v1/login"
+    findUserByEmail: "/api/v1/usuarios"
 springdoc:
   swagger-ui:
     path: "/swagger-docs"
