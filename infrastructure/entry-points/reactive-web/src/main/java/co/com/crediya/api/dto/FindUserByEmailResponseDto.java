@@ -1,6 +1,5 @@
 package co.com.crediya.api.dto;
 
-import co.com.crediya.model.user.values.*;
 import lombok.*;
 
 import java.io.Serializable;
