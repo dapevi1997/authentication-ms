@@ -29,6 +29,7 @@ class JwtServiceTest {
         UserPrincipal userPrincipal = UserPrincipal.builder()
                 .email("mail@mail,com")
                 .password("password")
+                .nameRole("CLIENT")
                 .build();
         // Act
         String generatedToken = jwtService.generateToken(userPrincipal);
@@ -44,6 +45,7 @@ class JwtServiceTest {
         UserPrincipal userPrincipal = UserPrincipal.builder()
                 .email("mail@mail,com")
                 .password("password")
+                .nameRole("CLIENT")
                 .build();
         String token = jwtService.generateToken(userPrincipal);
 
@@ -61,6 +63,7 @@ class JwtServiceTest {
         UserPrincipal userPrincipal = UserPrincipal.builder()
                 .email("mail@mail,com")
                 .password("password")
+                .nameRole("CLIENT")
                 .build();
 
         String token = jwtService.generateToken(userPrincipal);

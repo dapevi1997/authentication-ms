@@ -37,6 +37,7 @@ class CustomMapperR2dbcTest {
         testUser.setBaseSalary(new BaseSalary("50000"));
         testUser.setIdRole(new IdRole("2"));
         testUser.setPassword(new Password("Password123*"));
+        testUser.setCreatedAt(new CreatedAt("2025-01-01"));
 
         // Setup UserEntity
         testUserEntity = new UserEntity();
@@ -51,6 +52,7 @@ class CustomMapperR2dbcTest {
         testUserEntity.setBaseSalary(new BigDecimal("50000"));
         testUserEntity.setIdRol(2L);
         testUserEntity.setPassword("Password123*");
+        testUserEntity.setCreatedAt(LocalDate.now());
 
         // Setup Role domain object
         testRole = new Role();
@@ -85,10 +87,10 @@ class CustomMapperR2dbcTest {
 
     @Test
     void shouldMapUserEntityToUser() throws ConstructionDomainException {
-        // When
+        // Act
         User result = CustomMapperR2dbc.userEntityToUser(testUserEntity);
 
-        // Then
+        // Assert
         assertNotNull(result);
         assertEquals("John", result.getName().getNameUser());
         assertEquals("John", result.getLastName().getLastNameUser()); // Note: mapper uses name for lastname

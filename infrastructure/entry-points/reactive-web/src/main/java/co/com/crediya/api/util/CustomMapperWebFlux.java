@@ -8,8 +8,6 @@ import co.com.crediya.model.user.exception.ConstructionDomainException;
 import co.com.crediya.model.user.values.*;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
-
 @Component
 public class CustomMapperWebFlux {
 

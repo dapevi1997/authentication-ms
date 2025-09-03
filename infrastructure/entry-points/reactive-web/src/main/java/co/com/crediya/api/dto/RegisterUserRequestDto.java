@@ -6,10 +6,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.*;
 
 import java.io.Serializable;
 
 @Schema(description = "Entidad Usuario del sistema")
+@Getter
+@Setter
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegisterUserRequestDto implements Serializable {
     @NotBlank(message = "El campo nombre no puede estar vacío")
     @NotNull(message = "El campo nombre no puede ser nulo")
@@ -61,100 +67,4 @@ public class RegisterUserRequestDto implements Serializable {
     @Schema(description = "Id del rol", examples = "1")
     @JsonProperty("id_rol")
     private String idRole;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDocumentId() {
-        return documentId;
-    }
-
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getBaseSalary() {
-        return baseSalary;
-    }
-
-    public void setBaseSalary(String baseSalary) {
-        this.baseSalary = baseSalary;
-    }
-
-    public String getIdRole() {
-        return idRole;
-    }
-
-    public void setIdRole(String idRole) {
-        this.idRole = idRole;
-    }
-
-    public String getUserBirthday() {
-        return userBirthday;
-    }
-
-    public void setUserBirthday(String userBirthday) {
-        this.userBirthday = userBirthday;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "RegisterUserRequestDto{" +
-                "name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", documentId='" + documentId + '\'' +
-                ", phone='" + phone + '\'' +
-                ", baseSalary='" + baseSalary + '\'' +
-                ", userBirthday='" + userBirthday + '\'' +
-                ", idRole='" + idRole + '\'' +
-                '}';
-    }
 }
