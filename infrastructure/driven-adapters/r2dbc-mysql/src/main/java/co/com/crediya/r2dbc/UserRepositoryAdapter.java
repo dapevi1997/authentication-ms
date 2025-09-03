@@ -45,7 +45,7 @@ public class UserRepositoryAdapter extends ReactiveAdapterOperations<
         return Mono.just(user)
                 .flatMap(u -> Mono.fromCallable(() -> {
                     u.setPassword(new Password(passwordEncoder.encode(u.getPassword().getPassword())));
-                    u.setCreatedAt(new CreatedAt(LocalDate.now().format(DateTimeFormatter.ofPattern("yyy-MM-dd"))));
+                    u.setCreatedAt(new CreatedAt(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
                     return u;
                 }))
                 .map(CustomMapperR2dbc::userToUserEntity)

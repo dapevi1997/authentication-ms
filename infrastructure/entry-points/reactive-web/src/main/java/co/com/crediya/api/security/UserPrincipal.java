@@ -1,6 +1,5 @@
 package co.com.crediya.api.security;
 
-import co.com.crediya.model.user.gateways.UserRepository;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,7 +13,6 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 @Builder
 public class UserPrincipal implements UserDetails {
-    //private final UserRepository userRepository;
     private String email;
     private String password;
     private Long idRole;
@@ -22,7 +20,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Stream.of("ROLE_" + nameRole)
+        return Stream.of(nameRole)
                 .map(SimpleGrantedAuthority::new)
                 .toList();
     }
