@@ -28,3 +28,5 @@ include ':r2dbc-mysql'
 project(':r2dbc-mysql').projectDir = file('./infrastructure/driven-adapters/r2dbc-mysql')
 include ':custom-mapper'
 project(':custom-mapper').projectDir = file('./infrastructure/helpers/custom-mapper')
+include ':logger'
+project(':logger').projectDir = file('./infrastructure/helpers/logger')

@@ -22,6 +22,11 @@ management:
         enabled: true
 cors:
   allowed-origins: "http://localhost:4200,http://localhost:8080"
+routes:
+  paths:
+    saveUser: "/api/v1/usuarios"
+    login: "/api/v1/login"
+    findUserByEmail: "/api/v1/usuarios"
 springdoc:
   swagger-ui:
     path: "/swagger-docs"
@@ -35,9 +40,12 @@ adapters:
     port: 3306
     database: "authentication"
     schema: "V1__Init-database-dev.sql"
-    username: "user"
+    username: "root"
     password: "password"
 flyway:
   enabled: true
   baseline-on-migrate: true
   locations: "classpath:db/migration"
+jwt:
+  secret: a-string-secret-at-least-256-bits-long
+  expiration: 18000

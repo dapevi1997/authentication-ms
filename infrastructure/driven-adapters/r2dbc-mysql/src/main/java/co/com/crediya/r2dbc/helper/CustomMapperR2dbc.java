@@ -5,8 +5,8 @@ import co.com.crediya.model.role.values.Description;
 import co.com.crediya.model.user.User;
 import co.com.crediya.model.user.exception.ConstructionDomainException;
 import co.com.crediya.model.user.values.*;
-import co.com.crediya.r2dbc.RoleEntity;
-import co.com.crediya.r2dbc.UserEntity;
+import co.com.crediya.r2dbc.entity.RoleEntity;
+import co.com.crediya.r2dbc.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,6 +22,8 @@ public class CustomMapperR2dbc {
         userEntity.setDocumentoIdentidad(user.getDocumentId().getDocumentoIdentidadUsuario());
         userEntity.setBaseSalary(user.getBaseSalary().getBaseSalaryUser());
         userEntity.setIdRol(user.getIdRole().getIdRole());
+        userEntity.setPassword(user.getPassword().getPassword());
+        userEntity.setCreatedAt(user.getCreatedAt().getCreatedAt());
         return userEntity;
     }
 
@@ -45,6 +47,8 @@ public class CustomMapperR2dbc {
             user.setPhone(new Phone(userEntity.getPhone().toString()));
             user.setEmail(new Email(userEntity.getEmail()));
             user.setBaseSalary(new BaseSalary(userEntity.getBaseSalary().toString()));
+            user.setPassword(new Password(userEntity.getPassword()));
+            user.setCreatedAt(new CreatedAt(userEntity.getCreatedAt().toString()));
             return user;
     }
 

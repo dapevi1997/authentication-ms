@@ -21,8 +21,4 @@ public class LastName {
     public String getLastNameUser() {
         return lastNameUser;
     }
-
-    public void setLastNameUser(String lastNameUser) {
-        this.lastNameUser = lastNameUser;
-    }
 }

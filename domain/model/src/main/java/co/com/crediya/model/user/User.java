@@ -13,6 +13,8 @@ public class User {
     private Phone phone;
     private BaseSalary baseSalary;
     private IdRole idRole;
+    private Password password;
+    private CreatedAt createdAt;
 
     public User() {
     }
@@ -107,5 +109,21 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Password getPassword() {
+        return password;
+    }
+
+    public void setPassword(Password password) {
+        this.password = password;
+    }
+
+    public CreatedAt getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(CreatedAt createdAt) {
+        this.createdAt = createdAt;
     }
 }

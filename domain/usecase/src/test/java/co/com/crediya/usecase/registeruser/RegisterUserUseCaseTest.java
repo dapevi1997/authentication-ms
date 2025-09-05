@@ -1,8 +1,11 @@
 package co.com.crediya.usecase.registeruser;
 
+import co.com.crediya.model.logger.LoggerGateway;
 import co.com.crediya.model.user.User;
+import co.com.crediya.model.user.exception.ConstructionDomainException;
 import co.com.crediya.model.user.exception.DomainException;
 import co.com.crediya.model.user.gateways.UserRepository;
+import co.com.crediya.model.user.values.Email;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,15 +21,19 @@ import static org.mockito.Mockito.*;
 class RegisterUserUseCaseTest {
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private LoggerGateway loggerGateway;
     @InjectMocks
     private RegisterUserUseCase useCase;
 
     @Test
-    void registerUserEmailExists() {
-        User user = mock(User.class);
-        when(user.getEmail()).thenReturn(mock(co.com.crediya.model.user.values.Email.class));
-        when(user.getEmail().getEmailUser()).thenReturn("test@mail.com");
+    void registerUserEmailExists() throws ConstructionDomainException {
+        User user = new User();
+        Email email = new Email("test@mail.com");
+        user.setEmail(email);
+
         when(userRepository.existByEmail(any())).thenReturn(Mono.just(true));
+        when(userRepository.save(any(User.class))).thenReturn(Mono.just(user));
 
         StepVerifier.create(useCase.registerUser(user)).expectError(DomainException.class).verify();
     }

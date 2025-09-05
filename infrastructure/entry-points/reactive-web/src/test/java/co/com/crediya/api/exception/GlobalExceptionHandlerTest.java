@@ -1,12 +1,10 @@
 package co.com.crediya.api.exception;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -14,87 +12,87 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.codec.ServerCodecConfigurer;
-import co.com.crediya.model.user.exception.DomainException;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
 @ExtendWith(MockitoExtension.class)
 class GlobalExceptionHandlerTest {
 
     @Mock
     private ErrorAttributes errorAttributes;
+
     @Mock
     private WebProperties webProperties;
+
     @Mock
     private ServerCodecConfigurer codecConfigurer;
+
+    @Mock
+    private ApplicationContext applicationContext;
+
     @Mock
     private WebProperties.Resources resources;
 
-    private ApplicationContext applicationContext;
     private GlobalExceptionHandler globalExceptionHandler;
-    private Map<Class<? extends Exception>, HttpStatus> exceptionToStatusCode;
 
     @BeforeEach
     void setUp() {
-        // Crear un ApplicationContext real en lugar de un mock
-        applicationContext = new AnnotationConfigApplicationContext();
-
-        exceptionToStatusCode = new HashMap<>();
-        exceptionToStatusCode.put(RuntimeException.class, HttpStatus.INTERNAL_SERVER_ERROR);
-
         when(webProperties.getResources()).thenReturn(resources);
-        when(codecConfigurer.getWriters()).thenReturn(java.util.Collections.emptyList());
-        when(codecConfigurer.getReaders()).thenReturn(java.util.Collections.emptyList());
+        when(codecConfigurer.getWriters()).thenReturn(List.of());
+        when(codecConfigurer.getReaders()).thenReturn(List.of());
+
+        // Mock del ApplicationContext con classLoader
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        when(applicationContext.getClassLoader()).thenReturn(classLoader);
 
         globalExceptionHandler = new GlobalExceptionHandler(errorAttributes, webProperties,
-                codecConfigurer, applicationContext, exceptionToStatusCode,
-                HttpStatus.INTERNAL_SERVER_ERROR);
+                codecConfigurer, applicationContext);
     }
 
     @Test
-    void testConstructorInitialization() {
-        assertNotNull(globalExceptionHandler);
+    @DisplayName("Constructor debe inicializar correctamente sin lanzar excepciones")
+    void constructor_ShouldInitializeCorrectly() {
+        // Assert
+        assertThat(globalExceptionHandler).isNotNull();
     }
 
     @Test
-    void testExceptionToStatusCodeMapping() {
-        Map<Class<? extends Exception>, HttpStatus> mapping = new HashMap<>();
-        mapping.put(BadRequestException.class, HttpStatus.BAD_REQUEST);
-        mapping.put(DomainException.class, HttpStatus.CONFLICT);
+    @DisplayName("getRoutingFunction debe retornar RouterFunction válida")
+    void getRoutingFunction_ShouldReturnValidRouterFunction() {
+        // Act
+        RouterFunction<ServerResponse> routingFunction =
+                globalExceptionHandler.getRoutingFunction(errorAttributes);
 
-        assertEquals(HttpStatus.BAD_REQUEST, mapping.get(BadRequestException.class));
-        assertEquals(HttpStatus.CONFLICT, mapping.get(DomainException.class));
+        // Assert
+        assertThat(routingFunction).isNotNull();
     }
 
     @Test
-    void testDefaultStatusConfiguration() {
-        HttpStatus defaultStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-        assertEquals(500, defaultStatus.value());
-        assertTrue(defaultStatus.is5xxServerError());
+    @DisplayName("GlobalExceptionHandler debe extender AbstractErrorWebExceptionHandler")
+    void globalExceptionHandler_ShouldExtendAbstractErrorWebExceptionHandler() {
+        // Assert
+        assertThat(globalExceptionHandler).isInstanceOf(
+                org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler.class);
     }
 
     @Test
-    void testExceptionToStatusCodeContainsRuntimeException() {
-        assertTrue(exceptionToStatusCode.containsKey(RuntimeException.class));
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,
-                exceptionToStatusCode.get(RuntimeException.class));
+    @DisplayName("GlobalExceptionHandler debe tener anotación @Component")
+    void globalExceptionHandler_ShouldHaveComponentAnnotation() {
+        // Assert
+        assertThat(globalExceptionHandler.getClass()
+                .isAnnotationPresent(org.springframework.stereotype.Component.class)).isTrue();
     }
 
     @Test
-    void testGlobalExceptionHandlerInstanceOfAbstractErrorWebExceptionHandler() {
-        assertTrue(
-                globalExceptionHandler instanceof org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler);
-    }
+    @DisplayName("GlobalExceptionHandler debe tener anotación @Order con valor -2")
+    void globalExceptionHandler_ShouldHaveOrderAnnotation() {
+        // Act
+        org.springframework.core.annotation.Order orderAnnotation = globalExceptionHandler
+                .getClass().getAnnotation(org.springframework.core.annotation.Order.class);
 
-    @Test
-    void testExceptionToStatusCodeIsNotEmpty() {
-        assertNotNull(exceptionToStatusCode);
-        assertTrue(exceptionToStatusCode.size() > 0);
-    }
-
-    @Test
-    void testApplicationContextIsNotNull() {
-        assertNotNull(applicationContext);
+        // Assert
+        assertThat(orderAnnotation).isNotNull();
+        assertThat(orderAnnotation.value()).isEqualTo(-2);
     }
 }

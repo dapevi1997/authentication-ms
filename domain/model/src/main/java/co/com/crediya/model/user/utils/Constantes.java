@@ -18,9 +18,11 @@ public final class Constantes {
     public static final String BASE_SALARY_NOT_NUMBER = "No se pudo obtener el valor numérico del salario ingresado";
     public static final String BIRTHDAY_NULL = "La fecha de nacimiento del usuario no puede ser nula";
     public static final String BIRTHDAY_BAD_FORMAT = "La fecha de nacimiento debe tener el formato yyyy-MM-dd";
+    public static final String CREATED_AT_BAD_FORMAT = "La fecha de creación debe tener el formato yyyy-MM-dd";
     public static final String ID_USER_NULL = "El id del usuario no debe ser nulo";
     public static final String ID_USER_BAD_FORMAT = "No se pudo obtener el valor numérico del id del usuario";
     public static final String BIRTHDAY_USER_NULL = "La fecha de nacimiento del usuario no puede ser nula";
+    public static final String CREATED_AT_NULL = "La fecha de creación del usuario no puede ser nula";
     public static final String ADDRESS_USER_NULL = "La dirección no puede ser nula";
     public static final String ADDRESS_USER_EMPTY = "La dirección no puede estar vacía";
     public static final String ID_ROLE_NULL = "El id del rol no debe ser nulo";

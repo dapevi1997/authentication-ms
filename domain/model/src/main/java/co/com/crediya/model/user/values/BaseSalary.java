@@ -20,8 +20,4 @@ public class BaseSalary {
     public BigDecimal getBaseSalaryUser() {
         return baseSalaryUser;
     }
-
-    public void setBaseSalaryUser(BigDecimal baseSalaryUser) {
-        this.baseSalaryUser = baseSalaryUser;
-    }
 }

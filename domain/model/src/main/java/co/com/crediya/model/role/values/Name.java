@@ -19,8 +19,4 @@ public class Name {
     public String getNameRole() {
         return nameRole;
     }
-
-    public void setNameRole(String nameRole) {
-        this.nameRole = nameRole;
-    }
 }

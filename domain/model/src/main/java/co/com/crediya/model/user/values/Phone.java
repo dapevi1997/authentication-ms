@@ -19,9 +19,4 @@ public class Phone {
     public Long getPhoneUser() {
         return phoneUser;
     }
-
-    public void setPhoneUser(Long phoneUser) {
-        this.phoneUser = phoneUser;
-    }
-
 }
