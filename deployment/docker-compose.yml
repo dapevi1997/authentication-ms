@@ -1,0 +1,39 @@
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  authentication-ms:
+    image: dapevi1997/authentication:1.0.0
+    container_name: authentication-ms-container
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      R2DBC_HOST: mysql
+      R2DBC_PORT: 3306
+      R2DBC_USERNAME: root
+      R2DBC_PASSWORD: password
+      APP_PORT: 8080
+    networks:
+      - app-network
