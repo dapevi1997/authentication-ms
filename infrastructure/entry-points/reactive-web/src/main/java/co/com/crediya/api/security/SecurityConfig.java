@@ -79,7 +79,7 @@ public class SecurityConfig {
                         .pathMatchers("/swagger-docs/**", "/api-docs/**", "/webjars/**", "/swagger-ui/**").permitAll()
                         .pathMatchers("/actuator/health").permitAll()
                         .pathMatchers(HttpMethod.POST, Constantes.URL_REGISTER_USER).hasAnyRole(ADMIN.name(), ASESOR.name())
-                        .pathMatchers(HttpMethod.GET, Constantes.URL_REGISTER_USER).hasAnyRole(ASESOR.name())
+                        .pathMatchers(HttpMethod.GET, Constantes.URL_REGISTER_USER).hasAnyRole(ASESOR.name(), CLIENT.name())
                         .anyExchange().authenticated()
                 )
                 .build();
