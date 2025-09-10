@@ -10,10 +10,8 @@ services:
     image: mysql:latest
     container_name: mysql-container
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+    env_file:
+      - .env-database
     ports:
       - "3306:3306"
     volumes:
@@ -22,18 +20,27 @@ services:
       - app-network
 
   authentication-ms:
-    image: dapevi1997/authentication:1.0.0
+    image: dapevi1997/authentication:1.0.2
     container_name: authentication-ms-container
     restart: always
     ports:
       - "8080:8080"
     depends_on:
       - mysql
-    environment:
-      R2DBC_HOST: mysql
-      R2DBC_PORT: 3306
-      R2DBC_USERNAME: root
-      R2DBC_PASSWORD: password
-      APP_PORT: 8080
+    env_file:
+      - .env-authentication
+    networks:
+      - app-network
+
+  request-ms:
+    image: dapevi1997/request:1.1.2
+    container_name: request-ms-container
+    restart: always
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+    env_file:
+      - .env-request
     networks:
       - app-network
