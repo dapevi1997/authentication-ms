@@ -20,7 +20,7 @@ services:
       - app-network
 
   authentication-ms:
-    image: dapevi1997/authentication:1.0.2
+    image: dapevi1997/authentication:1.1.0
     container_name: authentication-ms-container
     restart: always
     ports:
@@ -33,7 +33,7 @@ services:
       - app-network
 
   request-ms:
-    image: dapevi1997/request:1.1.2
+    image: dapevi1997/request:1.2.0
     container_name: request-ms-container
     restart: always
     ports:
@@ -42,5 +42,18 @@ services:
       - mysql
     env_file:
       - .env-request
+    networks:
+      - app-network
+
+  reportes-ms:
+    image: dapevi1997/reportes:1.0.0
+    container_name: reportes-ms-container
+    restart: always
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql
+    env_file:
+      - .env-reportes
     networks:
       - app-network
