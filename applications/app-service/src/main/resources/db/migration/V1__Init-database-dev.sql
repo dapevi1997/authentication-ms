@@ -34,7 +34,8 @@ INSERT IGNORE INTO role (name, description)
 VALUES
     ('ROLE_ADMIN', 'Administrador del sistema'),
     ('ROLE_ASESOR', 'Asesor de CrediYa'),
-    ('ROLE_CLIENT', 'Cliente de la aplicación');
+    ('ROLE_CLIENT', 'Cliente de la aplicación'),
+    ('ROLE_INTERNAL_SERVICE', 'Comunicación entre microservicios');
 
 -- Usuario por defecto
 INSERT IGNORE INTO user (
