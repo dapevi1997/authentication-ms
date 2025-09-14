@@ -34,7 +34,8 @@ INSERT IGNORE INTO role (name, description)
 VALUES
     ('ROLE_ADMIN', 'Administrador del sistema'),
     ('ROLE_ASESOR', 'Asesor de CrediYa'),
-    ('ROLE_CLIENT', 'Cliente de la aplicación');
+    ('ROLE_CLIENT', 'Cliente de la aplicación'),
+    ('ROLE_INTERNAL_SERVICE', 'Comunicación entre microservicios');
 
 -- Usuario por defecto
 INSERT IGNORE INTO user (
@@ -80,6 +81,20 @@ INSERT IGNORE INTO user (
 ),
 
 (
+    'Cliente',
+    'System',
+    '1990-01-01',
+    '1990-01-01',
+    'Default Address',
+    'dapevi97@gmail.com',
+    '$2a$12$HjjKfz6uoNY2iZMD30MjkuWzk09h5sLcjQ9i8vGlFs7TRbHtrWr1C', -- Ejemplo hash bcrypt: cliente
+    1000000000,
+    3000000000,
+    5000,
+    3 -- Este ID debe existir en la tabla role
+),
+
+(
     'Andrés',
     'System',
     '1990-01-01',
@@ -103,6 +118,6 @@ INSERT IGNORE INTO user (
     '$2a$12$HjjKfz6uoNY2iZMD30MjkuWzk09h5sLcjQ9i8vGlFs7TRbHtrWr1C', -- Ejemplo hash bcrypt: cliente
     1000000000,
     3000000000,
-    5000000.00000,
+    5000,
     3 -- Este ID debe existir en la tabla role
 );

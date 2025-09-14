@@ -1,0 +1,59 @@
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    restart: always
+    env_file:
+      - .env-database
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  authentication-ms:
+    image: dapevi1997/authentication:1.1.0
+    container_name: authentication-ms-container
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    env_file:
+      - .env-authentication
+    networks:
+      - app-network
+
+  request-ms:
+    image: dapevi1997/request:1.2.0
+    container_name: request-ms-container
+    restart: always
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+    env_file:
+      - .env-request
+    networks:
+      - app-network
+
+  reportes-ms:
+    image: dapevi1997/reportes:1.0.0
+    container_name: reportes-ms-container
+    restart: always
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql
+    env_file:
+      - .env-reportes
+    networks:
+      - app-network
