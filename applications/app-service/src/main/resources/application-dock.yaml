@@ -40,12 +40,9 @@ adapters:
     port: ${R2DBC_PORT}
     database: "authentication"
     schema: "V1__Init-database-dev.sql"
-    username: ${R2DBC_USERNAME}
-    password: ${R2DBC_PASSWORD}
 flyway:
   enabled: true
   baseline-on-migrate: true
   locations: "classpath:db/migration"
 jwt:
-  secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}
