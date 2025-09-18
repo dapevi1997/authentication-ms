@@ -76,7 +76,7 @@ public class SecurityConfig {
                 })
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/api/v1/login/**").permitAll()
-                        .pathMatchers("/api/v1/authentication/swagger-docs/**", "/api-docs/**", "/webjars/**", "/swagger-ui/**").permitAll()
+                        .pathMatchers("/api/v1/authentication/swagger-docs/**", "/api/v1/authentication/api-docs/**", "/webjars/**", "/api/v1/authentication/swagger-ui/**").permitAll()
                         .pathMatchers("/actuator/health").permitAll()
                         .pathMatchers(HttpMethod.POST, Constantes.URL_REGISTER_USER).hasAnyRole(ADMIN.name(), ASESOR.name())
                         .pathMatchers(HttpMethod.GET, Constantes.URL_REGISTER_USER).hasAnyRole(ASESOR.name(), INTERNAL_SERVICE.name())

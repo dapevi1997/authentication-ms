@@ -31,7 +31,7 @@ springdoc:
   swagger-ui:
     path: "/api/v1/authentication/swagger-docs"
   api-docs:
-    path: "/api-docs"
+    path: "/api/v1/authentication/api-docs"
     groups:
       enabled: true
 adapters:
