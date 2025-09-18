@@ -29,7 +29,7 @@ routes:
     findUserByEmail: "/api/v1/usuarios"
 springdoc:
   swagger-ui:
-    path: "/swagger-docs"
+    path: "/api/v1/authentication/swagger-docs"
   api-docs:
     path: "/api-docs"
     groups:
