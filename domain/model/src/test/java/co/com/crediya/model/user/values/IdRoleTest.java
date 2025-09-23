@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class IdRoleTest {
-    // El id del rol es correcto
     @Test
     void roleOk() throws ConstructionDomainException {
         // Arrange
@@ -19,7 +18,18 @@ class IdRoleTest {
         assertEquals(Long.valueOf(roleInput), idRole.getIdRole());
     }
 
-    // El telefono es null
+    @Test
+    void roleToStringOk() throws ConstructionDomainException {
+        // Arrange
+        String roleInput = "1";
+
+        // Act
+        IdRole idRole = new IdRole(roleInput);
+
+        // Assert
+        assertNotNull(idRole.toString());
+    }
+
     @Test
     void roleNull(){
         // Arrange
@@ -31,7 +41,6 @@ class IdRoleTest {
         });
     }
 
-    // El telefono no es un valor numérico
     @Test
     void roleNotNumeric(){
         // Arrange

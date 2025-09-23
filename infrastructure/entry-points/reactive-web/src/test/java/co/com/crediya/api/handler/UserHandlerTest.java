@@ -1,6 +1,6 @@
 package co.com.crediya.api.handler;
 
-import co.com.crediya.api.dto.FindUserByEmailResponseDto;
+import co.com.crediya.api.dto.FindUserResponseDto;
 import co.com.crediya.api.dto.RegisterUserRequestDto;
 import co.com.crediya.api.exception.BadRequestException;
 import co.com.crediya.api.util.CustomMapperWebFlux;
@@ -11,6 +11,7 @@ import co.com.crediya.model.role.values.Name;
 import co.com.crediya.model.user.User;
 import co.com.crediya.model.user.exception.ConstructionDomainException;
 import co.com.crediya.model.user.exception.DomainException;
+import co.com.crediya.model.user.gateways.UserRepository;
 import co.com.crediya.model.user.values.Email;
 import co.com.crediya.requestvalidator.RequestValidator;
 import co.com.crediya.usecase.finduserbyemail.FindUserByEmailUseCase;
@@ -66,6 +67,9 @@ class UserHandlerTest {
     @Mock
     private FindUserByEmailUseCase findUserByEmailUseCase;
 
+    @Mock
+    private UserRepository userRepository;
+
     private UserHandler userHandler;
 
     @BeforeEach
@@ -77,7 +81,8 @@ class UserHandlerTest {
                 objectMapper,
                 customMapper,
                 loggerGateway,
-                findUserByEmailUseCase
+                findUserByEmailUseCase,
+                userRepository
         );
     }
 
@@ -241,7 +246,7 @@ class UserHandlerTest {
         // Arrange
         String email = "test@mail.com";
         User domainUser = createMockUser();
-        FindUserByEmailResponseDto responseDto = createMockFindUserByEmailResponseDto();
+        FindUserResponseDto responseDto = createMockFindUserByEmailResponseDto();
 
         ServerRequest serverRequest = MockServerRequest.builder()
                 .queryParam("email", email)
@@ -381,8 +386,8 @@ class UserHandlerTest {
         return role;
     }
 
-    private FindUserByEmailResponseDto createMockFindUserByEmailResponseDto() {
-        return FindUserByEmailResponseDto.builder()
+    private FindUserResponseDto createMockFindUserByEmailResponseDto() {
+        return FindUserResponseDto.builder()
                 .idUser(1L)
                 .name("Juan")
                 .lastName("Pérez")

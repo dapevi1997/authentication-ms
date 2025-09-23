@@ -1,6 +1,7 @@
 package co.com.crediya.api.openapiutil;
 
 import co.com.crediya.api.dto.*;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import lombok.experimental.UtilityClass;
 import org.springdoc.core.fn.builders.operation.Builder;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import static org.springdoc.core.fn.builders.schema.Builder.schemaBuilder;
 public class UserOpenApi {
     private final String CONFLICT_CODE = String.valueOf(HttpStatus.CONFLICT.value());
     private final String CREATED_CODE = String.valueOf(HttpStatus.CREATED.value());
+    private final String OK_CODE = String.valueOf(HttpStatus.OK.value());
     private final String BAD_REQUEST_CODE = String.valueOf(HttpStatus.BAD_REQUEST.value());
     private final String INTERNAL_ERROR_CODE = String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value());
     private final String UNAUTHORIZED_CODE = String.valueOf(HttpStatus.UNAUTHORIZED.value());
@@ -86,14 +88,15 @@ public class UserOpenApi {
                 .summary("Devuelve el usuario con email si existe")
                 .description("Endpoint para recuperar un usuario por email")
                 .tag("Users")
+                .parameter(org.springdoc.core.fn.builders.parameter.Builder.parameterBuilder().name("email").in(ParameterIn.QUERY))
                 .security(org.springdoc.core.fn.builders.securityrequirement.Builder.securityRequirementBuilder().name("bearerAuth"))
 
                 // 200 OK
                 .response(responseBuilder()
-                        .responseCode(CREATED_CODE)
-                        .description("Usuario retornado correctamente")
+                        .responseCode(OK_CODE)
+                        .description("Usuario encontrado")
                         .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
-                                .schema(schemaBuilder().implementation(FindUserByEmailResponseDto.class))))
+                                .schema(schemaBuilder().implementation(FindUserResponseDto.class))))
 
                 // 400 Bad Request
                 .response(responseBuilder()
@@ -119,7 +122,57 @@ public class UserOpenApi {
                 // 409 Conflict
                 .response(responseBuilder()
                         .responseCode(CONFLICT_CODE)
-                        .description("Conflicto al registrar el usuario")
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
+
+                // 500 Internal Server Error
+                .response(responseBuilder()
+                        .responseCode(INTERNAL_ERROR_CODE)
+                        .description("Error interno del servidor")
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))));
+    }
+
+    public Builder findUserByRoleName(Builder builder) {
+        return builder
+                .operationId("findUserByRoleName")
+                .summary("Devuelve una lista de usuarios que tienen el rol buscado")
+                .tag("Users")
+                .parameter(org.springdoc.core.fn.builders.parameter.Builder.parameterBuilder().name("rol").in(ParameterIn.QUERY))
+                .security(org.springdoc.core.fn.builders.securityrequirement.Builder.securityRequirementBuilder().name("bearerAuth"))
+
+                // 200 OK
+                .response(responseBuilder()
+                        .responseCode(OK_CODE)
+                        .description("Usuarios encontrados correctamente")
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(FindUserResponseDto.class))))
+
+                // 400 Bad Request
+                .response(responseBuilder()
+                        .responseCode(BAD_REQUEST_CODE)
+                        .description("Error en la solicitud")
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
+
+                // 401 Unauthorized
+                .response(responseBuilder()
+                        .responseCode(UNAUTHORIZED_CODE)
+                        .description(UNAUTHORIZED)
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
+
+                // 403 Forbiden
+                .response(responseBuilder()
+                        .responseCode(FORBIDDEN_CODE)
+                        .description(FORBIDDEN)
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
+
+                // 409 Conflict
+                .response(responseBuilder()
+                        .responseCode(CONFLICT_CODE)
+                        .description("Conflicto al encontrar usuarios")
                         .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
                                 .schema(schemaBuilder().implementation(ErrorResponseDto.class))))
 

@@ -41,12 +41,12 @@ VALUES
 INSERT IGNORE INTO user (
     name, lastname, birthdate, created_at, address, email, password, document_id, phone, base_salary, id_role
 ) VALUES (
-    'Admin',
+    'Administrador',
     'System',
     '1990-01-01',
     '1990-01-01',
     'Default Address',
-    'admin@mail.com',
+    'awsservices25@gmail.com',
     '$2a$12$RL5AZHyYbDbeqaCGx.fr0.Da7dd0fx110/h1YRBx1qsNCnv0LJz9O', -- Ejemplo hash bcrypt: admin123
     1000000000,
     3000000000,
@@ -69,55 +69,13 @@ INSERT IGNORE INTO user (
 (
     'Cliente',
     'System',
-    '1990-01-01',
-    '1990-01-01',
-    'Default Address',
-    'cliente@mail.com',
-    '$2a$12$HjjKfz6uoNY2iZMD30MjkuWzk09h5sLcjQ9i8vGlFs7TRbHtrWr1C', -- Ejemplo hash bcrypt: cliente
-    1000000000,
-    3000000000,
-    5000000.00000,
-    3 -- Este ID debe existir en la tabla role
-),
-
-(
-    'Cliente',
-    'System',
-    '1990-01-01',
+    '1997-01-01',
     '1990-01-01',
     'Default Address',
     'dapevi97@gmail.com',
     '$2a$12$HjjKfz6uoNY2iZMD30MjkuWzk09h5sLcjQ9i8vGlFs7TRbHtrWr1C', -- Ejemplo hash bcrypt: cliente
-    1000000000,
-    3000000000,
-    5000,
-    3 -- Este ID debe existir en la tabla role
-),
-
-(
-    'Andrés',
-    'System',
-    '1990-01-01',
-    '1990-01-01',
-    'Default Address',
-    'andres.ramirez@example.com',
-    '$2a$12$HjjKfz6uoNY2iZMD30MjkuWzk09h5sLcjQ9i8vGlFs7TRbHtrWr1C', -- Ejemplo hash bcrypt: cliente
-    1000000000,
-    3000000000,
-    5000000.00000,
-    3 -- Este ID debe existir en la tabla role
-),
-
-(
-    'Sofía',
-    'System',
-    '1990-01-01',
-    '1990-01-01',
-    'Default Address',
-    'sofia.mendez@example.com',
-    '$2a$12$HjjKfz6uoNY2iZMD30MjkuWzk09h5sLcjQ9i8vGlFs7TRbHtrWr1C', -- Ejemplo hash bcrypt: cliente
-    1000000000,
-    3000000000,
-    5000,
+    11031154986,
+    3215915567,
+    5000000,
     3 -- Este ID debe existir en la tabla role
 );

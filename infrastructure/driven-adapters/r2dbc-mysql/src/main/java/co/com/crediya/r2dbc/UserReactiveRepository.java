@@ -20,4 +20,12 @@ public interface UserReactiveRepository extends ReactiveCrudRepository<UserEntit
                 WHERE u.email = :email
             """)
     Flux<RoleEntity> findAllRolesByEmail(String email);
+
+    @Query("""
+                SELECT u.*
+                FROM user u
+                INNER JOIN role r ON u.id_role = r.id_role
+                WHERE r.name = :roleName
+            """)
+    Flux<UserEntity> findByRoleName(String roleName);
 }

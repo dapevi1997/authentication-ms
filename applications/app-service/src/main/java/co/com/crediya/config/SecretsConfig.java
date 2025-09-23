@@ -8,6 +8,7 @@ import co.com.crediya.api.security.util.JwtProperties;
 import co.com.crediya.api.security.util.JwtSecret;
 import co.com.crediya.r2dbc.config.MySqlConnectionProperties;
 import co.com.crediya.r2dbc.config.MySqlSecretDto;
+import org.springframework.context.annotation.Profile;
 import software.amazon.awssdk.regions.Region;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ public class SecretsConfig {
     private String database;
     
     @Bean
+    @Profile("dock")
     public JwtProperties jwtProperties(GenericManagerAsync secretManager) throws SecretException {
         JwtSecret secret = secretManager.getSecret("jwt", JwtSecret.class).block();
         assert secret != null;
@@ -35,6 +37,7 @@ public class SecretsConfig {
     }
 
     @Bean
+    @Profile("dock")
     public MySqlConnectionProperties mySqlConnectionProperties(GenericManagerAsync secretManager) throws SecretException {
         MySqlSecretDto secretDto = secretManager.getSecret("rds!db-6ad58c42-8de1-430f-82a2-11d215f5c460", MySqlSecretDto.class)
                 .block();

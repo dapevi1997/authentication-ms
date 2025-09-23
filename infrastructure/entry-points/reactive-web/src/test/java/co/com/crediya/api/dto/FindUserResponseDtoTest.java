@@ -7,12 +7,12 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class FindUserByEmailResponseDtoTest {
+class FindUserResponseDtoTest {
 
     @Test
     void testBuilderCreatesObject() {
         LocalDate birthday = LocalDate.of(1997, 5, 20);
-        FindUserByEmailResponseDto dto = FindUserByEmailResponseDto.builder()
+        FindUserResponseDto dto = FindUserResponseDto.builder()
                 .idUser(1L)
                 .name("Daniel")
                 .lastName("Pérez")
@@ -40,7 +40,7 @@ class FindUserByEmailResponseDtoTest {
     @Test
     void testAllArgsConstructor() {
         LocalDate birthday = LocalDate.of(2000, 1, 1);
-        FindUserByEmailResponseDto dto = new FindUserByEmailResponseDto(
+        FindUserResponseDto dto = new FindUserResponseDto(
                 10L, "Ana", "Gómez", "ana@mail.com", birthday,
                 "Carrera 45", "987654321", "3109876543", BigDecimal.TEN, 5L
         );
@@ -59,7 +59,7 @@ class FindUserByEmailResponseDtoTest {
 
     @Test
     void testNoArgsConstructorAndSetters() {
-        FindUserByEmailResponseDto dto = new FindUserByEmailResponseDto();
+        FindUserResponseDto dto = new FindUserResponseDto();
         dto.setIdUser(99L);
         dto.setName("Carlos");
 
@@ -69,13 +69,13 @@ class FindUserByEmailResponseDtoTest {
 
     @Test
     void testToBuilderCopiesAndModifies() {
-        FindUserByEmailResponseDto original = FindUserByEmailResponseDto.builder()
+        FindUserResponseDto original = FindUserResponseDto.builder()
                 .idUser(1L)
                 .name("Daniel")
                 .lastName("Pérez")
                 .build();
 
-        FindUserByEmailResponseDto modified = original.toBuilder()
+        FindUserResponseDto modified = original.toBuilder()
                 .name("Juan")
                 .build();
 

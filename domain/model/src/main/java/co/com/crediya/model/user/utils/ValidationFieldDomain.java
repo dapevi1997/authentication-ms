@@ -16,8 +16,6 @@ public class ValidationFieldDomain {
     private static final BigDecimal MIN_SALARY =  BigDecimal.valueOf(0.0);
     private static final BigDecimal MAX_SALARY =  BigDecimal.valueOf(15000000.0);
 
-    private ValidationFieldDomain() {}
-
     public static void verifyEmailFormat(String email) throws ConstructionDomainException {
          if (!EMAIL_PATTERN.matcher(email).matches()){
              throw new ConstructionDomainException(EMAIL_BAD_FORMAT);

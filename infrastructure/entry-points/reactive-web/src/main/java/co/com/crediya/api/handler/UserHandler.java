@@ -3,11 +3,13 @@ package co.com.crediya.api.handler;
 import co.com.crediya.api.dto.RegisterUserRequestDto;
 import co.com.crediya.api.dto.RegisterUserResponseDto;
 import co.com.crediya.api.exception.BadRequestException;
+import co.com.crediya.api.util.Constantes;
 import co.com.crediya.api.util.CustomMapperWebFlux;
 import co.com.crediya.model.logger.LoggerGateway;
 import co.com.crediya.model.user.User;
 import co.com.crediya.model.user.exception.DomainException;
 import co.com.crediya.model.user.exception.ConstructionDomainException;
+import co.com.crediya.model.user.gateways.UserRepository;
 import co.com.crediya.requestvalidator.RequestValidator;
 import co.com.crediya.usecase.finduserbyemail.FindUserByEmailUseCase;
 import co.com.crediya.usecase.getallroles.GetAllRolesUseCase;
@@ -32,6 +34,7 @@ public class UserHandler {
     private final CustomMapperWebFlux customMaper;
     private final LoggerGateway loggerGateway;
     private final FindUserByEmailUseCase findUserByEmailUseCase;
+    private final UserRepository userRepository;
 
     public Mono<ServerResponse> registerUser(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(RegisterUserRequestDto.class)
@@ -99,6 +102,20 @@ public class UserHandler {
                 .flatMap(dto -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
                         .bodyValue(dto)
+                );
+    }
+
+    public Mono<ServerResponse> findUserByRoleName(ServerRequest serverRequest) {
+        return Mono.justOrEmpty(serverRequest.queryParam(Constantes.QueryParams.ROL))
+                .switchIfEmpty(Mono.error(new BadRequestException(Constantes.MensajesExcepciones.PARAMETRO_ROL_OBLIGATORIO)))
+                .flatMapMany(userRepository::findAllUserByRoleName)
+                .map(customMaper::userToFindUSerByEmailDto)
+                .collectList()
+                .doOnNext(list -> loggerGateway.info(Constantes.MensajesLogger.NUMERO_USUARIOS_POR_ROL,
+                        serverRequest.queryParam(Constantes.QueryParams.ROL), list.size()))
+                .flatMap(list -> ServerResponse.ok()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .bodyValue(list)
                 );
     }
 }

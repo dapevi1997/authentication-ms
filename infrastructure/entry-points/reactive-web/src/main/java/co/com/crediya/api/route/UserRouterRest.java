@@ -23,6 +23,7 @@ public class UserRouterRest {
     public RouterFunction<ServerResponse> userRouterFunction(UserHandler userHandler) {
         return route().POST(userPath.getSaveUser(), accept(MediaType.APPLICATION_JSON), userHandler::registerUser, UserOpenApi::registerUser)
                 .GET(userPath.getFindUserByEmail(), accept(MediaType.APPLICATION_JSON), userHandler::findUserByEmail, UserOpenApi::findUserByEmail)
+                .GET(userPath.getFindUserByRoleName(), accept(MediaType.APPLICATION_JSON), userHandler::findUserByRoleName, UserOpenApi::findUserByRoleName)
                 .build();
     }
 }

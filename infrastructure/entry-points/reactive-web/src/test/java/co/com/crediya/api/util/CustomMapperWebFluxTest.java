@@ -1,6 +1,6 @@
 package co.com.crediya.api.util;
 
-import co.com.crediya.api.dto.FindUserByEmailResponseDto;
+import co.com.crediya.api.dto.FindUserResponseDto;
 import co.com.crediya.api.dto.RegisterUserRequestDto;
 import co.com.crediya.api.security.UserPrincipal;
 import co.com.crediya.model.user.User;
@@ -90,7 +90,7 @@ class CustomMapperWebFluxTest {
         user.setPhone(new Phone("5550000"));
 
         // Act
-        FindUserByEmailResponseDto dto = mapper.userToFindUSerByEmailDto(user);
+        FindUserResponseDto dto = mapper.userToFindUSerByEmailDto(user);
 
         // Assert
         assertThat(dto).isNotNull();

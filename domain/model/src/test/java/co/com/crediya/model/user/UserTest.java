@@ -21,6 +21,7 @@ class UserTest {
         IdRole idRole = new IdRole("1");
         IdUser idUser = new IdUser("99");
         Password password = new Password("securePass123");
+        CreatedAt createdAt = new CreatedAt("2025-01-01");
 
         User user = new User();
         user.setName(name);
@@ -34,6 +35,7 @@ class UserTest {
         user.setIdRole(idRole);
         user.setIdUser(idUser);
         user.setPassword(password);
+        user.setCreatedAt(createdAt);
 
         assertEquals(name, user.getName());
         assertEquals(lastName, user.getLastName());
@@ -46,6 +48,7 @@ class UserTest {
         assertEquals(idRole, user.getIdRole());
         assertEquals(idUser, user.getIdUser());
         assertEquals(password, user.getPassword());
+        assertEquals(createdAt, user.getCreatedAt());
     }
 
     @Test

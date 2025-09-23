@@ -20,7 +20,8 @@ services:
       - app-network
 
   authentication-ms:
-    image: dapevi1997/authentication:1.1.0
+    #image: dapevi1997/authentication:1.1.0
+    image: authentication:latest
     container_name: authentication-ms-container
     restart: always
     ports:
@@ -33,7 +34,8 @@ services:
       - app-network
 
   request-ms:
-    image: dapevi1997/request:1.2.0
+    #image: dapevi1997/request:1.2.0
+    image: request:latest
     container_name: request-ms-container
     restart: always
     ports:
@@ -46,7 +48,8 @@ services:
       - app-network
 
   reportes-ms:
-    image: dapevi1997/reportes:1.0.0
+    #image: dapevi1997/reportes:1.0.0
+    image: reportes:latest
     container_name: reportes-ms-container
     restart: always
     ports:

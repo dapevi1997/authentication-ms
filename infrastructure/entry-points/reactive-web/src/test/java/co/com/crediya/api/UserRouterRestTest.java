@@ -21,7 +21,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import co.com.crediya.api.config.UserPath;
-import co.com.crediya.api.dto.FindUserByEmailResponseDto;
+import co.com.crediya.api.dto.FindUserResponseDto;
 import co.com.crediya.api.dto.RegisterUserRequestDto;
 import co.com.crediya.api.dto.RegisterUserResponseDto;
 import co.com.crediya.api.handler.UserHandler;
@@ -154,7 +154,7 @@ class UserRouterRestTest {
     void findUserByEmail_Success_ShouldReturnUser() {
         // Arrange
         String email = "test@mail.com";
-        FindUserByEmailResponseDto expectedResponse = FindUserByEmailResponseDto.builder()
+        FindUserResponseDto expectedResponse = FindUserResponseDto.builder()
                 .idUser(1L).name("Juan").lastName("Pérez").email(email).documentId("12345678")
                 .phone("3001234567").address("Calle 123 #45-67").birthday(LocalDate.of(1990, 1, 1))
                 .baseSalary(new BigDecimal("2500000")).idRole(1L).build();
@@ -168,7 +168,7 @@ class UserRouterRestTest {
                         .build())
                 .exchange().expectStatus().isOk().expectHeader()
                 .contentType(MediaType.APPLICATION_JSON)
-                .expectBody(FindUserByEmailResponseDto.class);
+                .expectBody(FindUserResponseDto.class);
     }
 
     @Test

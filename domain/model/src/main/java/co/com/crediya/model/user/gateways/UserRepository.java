@@ -10,5 +10,6 @@ public interface UserRepository {
     Mono<User> save(User user);
     Mono<Boolean> existByEmail(Email email);
     Mono<User> findByEmail(Email email);
+    Flux<User> findAllUserByRoleName(String roleName);
     Flux<Role> findAllRoleByEmail(Email email);
 }

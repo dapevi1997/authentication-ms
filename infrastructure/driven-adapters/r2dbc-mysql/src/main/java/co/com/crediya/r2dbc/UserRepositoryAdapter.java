@@ -75,4 +75,11 @@ public class UserRepositoryAdapter extends ReactiveAdapterOperations<
                 .flatMap(roleEntity -> Mono.fromCallable(() -> CustomMapperR2dbc.roleEntityToRole(roleEntity)))
                 .as(transactionalOperator::transactional);
     }
+
+    @Override
+    public Flux<User> findAllUserByRoleName(String roleName) {
+        return repository.findByRoleName(roleName)
+                .flatMap(userEntity -> Mono.fromCallable(() -> CustomMapperR2dbc.userEntityToUser(userEntity)))
+                .as(transactionalOperator::transactional);
+    }
 }

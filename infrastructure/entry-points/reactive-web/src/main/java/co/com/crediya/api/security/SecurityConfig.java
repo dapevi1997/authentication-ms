@@ -80,6 +80,7 @@ public class SecurityConfig {
                         .pathMatchers("/actuator/health").permitAll()
                         .pathMatchers(HttpMethod.POST, Constantes.URL_REGISTER_USER).hasAnyRole(ADMIN.name(), ASESOR.name())
                         .pathMatchers(HttpMethod.GET, Constantes.URL_REGISTER_USER).hasAnyRole(ASESOR.name(), INTERNAL_SERVICE.name())
+                        .pathMatchers(HttpMethod.GET, Constantes.URL_USER_BY_ROLE_NAME).hasAnyRole(INTERNAL_SERVICE.name())
                         .anyExchange().authenticated()
                 )
                 .build();

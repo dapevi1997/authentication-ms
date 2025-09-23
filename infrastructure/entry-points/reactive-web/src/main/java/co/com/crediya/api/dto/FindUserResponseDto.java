@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class FindUserByEmailResponseDto implements Serializable {
+public class FindUserResponseDto implements Serializable {
     private Long idUser;
     private String name;
     private String lastName;

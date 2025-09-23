@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PasswordTest {
     @Test
-    void passeordOk() throws ConstructionDomainException {
+    void passwordOk() throws ConstructionDomainException {
         // Arrange
         String passeordInput = "password";
 
@@ -19,24 +19,24 @@ class PasswordTest {
     }
 
     @Test
-    void nameNull(){
+    void passwordNull(){
         // Arrange
         String passwordInput = null;
 
         // Act and Assert
         assertThrows(ConstructionDomainException.class, () -> {
-            new Name(passwordInput);
+            new Password(passwordInput);
         });
     }
 
     @Test
-    void nameEmpty(){
+    void passwordEmpty(){
         // Arrange
         String password = "";
 
         // Act and Assert
         assertThrows(ConstructionDomainException.class, () -> {
-            new Name(password);
+            new Password(password);
         });
     }
 
