@@ -30,3 +30,5 @@ include ':custom-mapper'
 project(':custom-mapper').projectDir = file('./infrastructure/helpers/custom-mapper')
 include ':logger'
 project(':logger').projectDir = file('./infrastructure/helpers/logger')
+include ':metrics'
+project(':metrics').projectDir = file('./infrastructure/helpers/metrics')
